@@ -172,10 +172,174 @@
         }
 
         .token {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 10px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .token.moving {
+            animation: tokenMove 0.5s ease-in-out;
+            z-index: 10;
+        }
+
+        @keyframes tokenMove {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* Token Shapes */
+        .token.circle {
             border-radius: 50%;
-            border: 1px solid white;
+        }
+
+        .token.square {
+            border-radius: 2px;
+        }
+
+        .token.diamond {
+            transform: rotate(45deg);
+            border-radius: 2px;
+        }
+
+        .token.triangle {
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 16px solid;
+            border-radius: 0;
+            background: none !important;
+        }
+
+        .token.hexagon {
+            width: 16px;
+            height: 16px;
+            background: inherit;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .token.hexagon:before,
+        .token.hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+
+        .token.hexagon:before {
+            bottom: 100%;
+            border-bottom: 4px solid;
+        }
+
+        .token.hexagon:after {
+            top: 100%;
+            border-top: 4px solid;
+        }
+
+        .token.star {
+            background: inherit;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .token.star:before {
+            content: "★";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+        .token.heart {
+            background: inherit;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .token.heart:before {
+            content: "♥";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+        .token.crown {
+            background: inherit;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .token.crown:before {
+            content: "♔";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+        .token.rocket {
+            background: inherit;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .token.rocket:before {
+            content: "🚀";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+        }
+
+        .token.car {
+            background: inherit;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .token.car:before {
+            content: "🚗";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+        }
+
+        .space-highlight {
+            animation: spacePulse 0.6s ease-in-out;
+        }
+
+        @keyframes spacePulse {
+            0% { 
+                background: var(--space-bg);
+                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+            }
+            50% { 
+                background: #334155;
+                box-shadow: 0 0 0 8px rgba(255, 215, 0, 0.3);
+            }
+            100% { 
+                background: var(--space-bg);
+                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+            }
         }
 
         .control-panel {
@@ -625,6 +789,10 @@
                             <option value="4" selected>4 Players</option>
                             <option value="5">5 Players</option>
                             <option value="6">6 Players</option>
+                            <option value="7">7 Players</option>
+                            <option value="8">8 Players</option>
+                            <option value="9">9 Players</option>
+                            <option value="10">10 Players</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -703,11 +871,14 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group" style="flex: 2;">
                         <label>Amount</label>
-                        <input type="number" id="bankAmount" placeholder="0">
+                        <input type="number" id="bankAmount" placeholder="0" style="font-size: 16px; padding: 12px;">
                     </div>
-                    <button id="bankTransfer">Transfer</button>
+                    <div class="form-group" style="flex: 1;">
+                        <label>&nbsp;</label>
+                        <button id="bankTransfer" style="height: 44px;">Transfer</button>
+                    </div>
                 </div>
             </div>
 
@@ -788,8 +959,9 @@
             let actionsHTML = '';
             if (actions) {
                 actionsHTML = '<div class="notification-actions">';
-                actions.forEach(action => {
-                    actionsHTML += `<button class="notification-btn ${action.class || 'secondary'}" onclick="${action.onclick}">${action.text}</button>`;
+                actions.forEach((action, index) => {
+                    const actionId = `action-${Date.now()}-${index}`;
+                    actionsHTML += `<button class="notification-btn ${action.class || 'secondary'}" id="${actionId}">${action.text}</button>`;
                 });
                 actionsHTML += '</div>';
             }
@@ -812,6 +984,34 @@
             // Show backdrop
             backdrop.classList.add('show');
             container.appendChild(notification);
+            
+            // Add event listeners for actions
+            if (actions) {
+                actions.forEach((action, index) => {
+                    const actionId = `action-${Date.now()}-${index}`;
+                    const button = notification.querySelector(`#${actionId}`);
+                    if (button) {
+                        button.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            try {
+                                if (action.onclick) {
+                                    if (typeof action.onclick === 'function') {
+                                        action.onclick();
+                                    } else if (typeof action.onclick === 'string') {
+                                        // Execute the string as a function
+                                        const func = new Function('return ' + action.onclick);
+                                        func()();
+                                    }
+                                }
+                                closeNotification(notification.querySelector('.notification-close'));
+                            } catch (error) {
+                                console.error('Error executing action:', error);
+                                closeNotification(notification.querySelector('.notification-close'));
+                            }
+                        });
+                    }
+                });
+            }
             
             // Trigger animation
             setTimeout(() => notification.classList.add('show'), 100);
@@ -1099,13 +1299,17 @@
 
             // Create players
             for (let i = 0; i < playerCount; i++) {
+                const tokenConfig = getRandomTokenConfig();
                 gameState.players.push({
                     id: i,
                     name: `Player ${i + 1}`,
                     money: startingMoney,
                     position: 0,
                     properties: [],
-                    tokenColor: getRandomColor(),
+                    tokenConfig: tokenConfig,
+                    tokenColor: tokenConfig.color,
+                    tokenShape: tokenConfig.shape,
+                    tokenName: tokenConfig.name,
                     inJail: false
                 });
             }
@@ -1133,31 +1337,121 @@
             const player = gameState.players[gameState.currentPlayerIndex];
             const oldPosition = player.position;
             
-            // Handle backward movement
-            if (moveAmount < 0) {
-                player.position = (player.position + moveAmount + 40) % 40;
-                logMessage(`${player.name} moved backward ${Math.abs(moveAmount)} spaces to ${BOARD_SPACES[player.position].name}`);
-                
-                // For backward movement, just show a simple notification and don't process space effects
-                showNotification(
-                    'Backward Movement',
-                    `${player.name} moved backward ${Math.abs(moveAmount)} spaces to ${BOARD_SPACES[player.position].name}. No property interactions.`,
-                    'info'
-                );
-            } else {
-                player.position = (player.position + moveAmount) % 40;
-                
+            // Disable move button during animation
+            const moveButton = document.getElementById('movePlayer');
+            moveButton.disabled = true;
+            moveButton.textContent = 'Moving...';
+            
+            // Handle both forward and backward movement with property interactions
+            animateMovement(player, oldPosition, moveAmount, moveAmount > 0);
+        }
+
+        // Animate player movement step by step
+        function animateMovement(player, startPosition, moveAmount, isForward) {
+            const steps = Math.abs(moveAmount);
+            let currentStep = 0;
+            let currentPosition = startPosition;
+            
+            const moveStep = () => {
+                if (currentStep < steps) {
+                    // Move one space
+                    if (isForward) {
+                        currentPosition = (currentPosition + 1) % 40;
+                    } else {
+                        currentPosition = (currentPosition - 1 + 40) % 40;
+                    }
+                    
+                    // Update player position
+                    player.position = currentPosition;
+                    
+                    // Highlight current space
+                    highlightSpace(currentPosition);
+                    
+                    // Update tokens with animation
+                    updateTokensWithAnimation(player);
+                    
+                    currentStep++;
+                    
+                    // Continue to next step after a delay
+                    setTimeout(moveStep, 300);
+                } else {
+                    // Movement complete
+                    finishMovement(player, startPosition, moveAmount, isForward);
+                }
+            };
+            
+            // Start the animation
+            moveStep();
+        }
+
+        // Highlight a space during movement
+        function highlightSpace(position) {
+            // Remove previous highlights
+            document.querySelectorAll('.space-highlight').forEach(space => {
+                space.classList.remove('space-highlight');
+            });
+            
+            // Add highlight to current space
+            const spaceElement = document.querySelector(`[data-space-index="${position}"]`);
+            if (spaceElement) {
+                spaceElement.classList.add('space-highlight');
+            }
+        }
+
+        // Update tokens with animation
+        function updateTokensWithAnimation(player) {
+            // Clear all tokens
+            for (let i = 0; i < 40; i++) {
+                const tokenContainer = document.getElementById(`tokens-${i}`);
+                if (tokenContainer) tokenContainer.innerHTML = '';
+            }
+
+            // Place all player tokens
+            gameState.players.forEach(p => {
+                const tokenContainer = document.getElementById(`tokens-${p.position}`);
+                if (tokenContainer) {
+                    const token = document.createElement('div');
+                    token.className = `token ${p.tokenShape}`;
+                    token.style.backgroundColor = p.tokenColor;
+                    token.style.borderColor = p.tokenColor;
+                    token.title = `${p.name} (${p.tokenName})`;
+                    
+                    // Add moving animation for current player
+                    if (p.id === player.id) {
+                        token.classList.add('moving');
+                    }
+                    
+                    tokenContainer.appendChild(token);
+                }
+            });
+        }
+
+        // Finish movement and handle space effects
+        function finishMovement(player, startPosition, moveAmount, isForward) {
+            // Remove space highlight
+            document.querySelectorAll('.space-highlight').forEach(space => {
+                space.classList.remove('space-highlight');
+            });
+            
+            // Re-enable move button
+            const moveButton = document.getElementById('movePlayer');
+            moveButton.disabled = false;
+            moveButton.textContent = 'Move Player';
+            
+            if (isForward) {
                 // Check if passed GO (only for forward movement)
-                if (player.position < oldPosition) {
+                if (player.position < startPosition) {
                     player.money += 200;
                     logMessage(`${player.name} passed GO and collected ₹200!`);
                 }
                 
                 logMessage(`${player.name} moved forward ${moveAmount} spaces to ${BOARD_SPACES[player.position].name}`);
-                
-                // Land on space (only for forward movement)
-                landOnSpace(player, player.position);
+            } else {
+                logMessage(`${player.name} moved backward ${Math.abs(moveAmount)} spaces to ${BOARD_SPACES[player.position].name}`);
             }
+            
+            // Land on space (both forward and backward movement now have property interactions)
+            landOnSpace(player, player.position);
             
             updatePlayerList();
             updateTokens();
@@ -1174,11 +1468,26 @@
                 case 'utility':
                     if (space.owner === undefined) {
                         // Offer to buy
-                        showConfirm(
+                        showNotification(
                             'Property Available',
                             `${player.name}, ${space.name} is available for ₹${space.price}. Buy it?`,
-                            `buyProperty(${player.id}, ${position})`,
-                            `logMessage('${player.name} passed on buying ${space.name}')`
+                            'warning',
+                            [
+                                {
+                                    text: 'Cancel',
+                                    class: 'secondary',
+                                    onclick: () => {
+                                        logMessage(`${player.name} passed on buying ${space.name}`);
+                                    }
+                                },
+                                {
+                                    text: 'Buy',
+                                    class: 'primary',
+                                    onclick: () => {
+                                        buyProperty(player.id, position);
+                                    }
+                                }
+                            ]
                         );
                     } else if (space.owner !== player.id) {
                         // Landed on another player's property - offer rent or purchase
@@ -1186,11 +1495,26 @@
                         const rent = calculateRent(space);
                         const marketPrice = Math.round(space.price * 1.2); // 20% premium for market value
                         
-                        showConfirm(
+                        showNotification(
                             'Property Owned',
                             `${player.name} landed on ${owner.name}'s property: ${space.name}\n\nRent: ₹${rent}\nMarket Value: ₹${marketPrice}`,
-                            `payRent(${player.id}, ${space.owner}, ${position})`,
-                            `negotiatePurchase(${player.id}, ${space.owner}, ${position})`
+                            'warning',
+                            [
+                                {
+                                    text: 'Negotiate',
+                                    class: 'secondary',
+                                    onclick: () => {
+                                        negotiatePurchase(player.id, space.owner, position);
+                                    }
+                                },
+                                {
+                                    text: 'Pay Rent',
+                                    class: 'primary',
+                                    onclick: () => {
+                                        payRent(player.id, space.owner, position);
+                                    }
+                                }
+                            ]
                         );
                     }
                     break;
@@ -1239,12 +1563,12 @@
 
         // Bank transfer
         function bankTransfer() {
-            const fromId = parseInt(document.getElementById('bankFrom').value);
-            const toId = parseInt(document.getElementById('bankTo').value);
+            const fromId = document.getElementById('bankFrom').value;
+            const toId = document.getElementById('bankTo').value;
             const amount = parseInt(document.getElementById('bankAmount').value);
 
             if (fromId === toId) {
-                showNotification('Invalid Transfer', 'Cannot transfer to the same player!', 'error');
+                showNotification('Invalid Transfer', 'Cannot transfer to the same account!', 'error');
                 return;
             }
 
@@ -1253,19 +1577,45 @@
                 return;
             }
 
-            const fromPlayer = gameState.players[fromId];
-            const toPlayer = gameState.players[toId];
-
-            if (fromPlayer.money < amount) {
-                showNotification('Insufficient Funds', 'Insufficient funds for transfer!', 'error');
+            // Handle bank transfers
+            if (fromId === 'bank' && toId !== 'bank') {
+                // Bank paying player
+                const toPlayer = gameState.players[parseInt(toId)];
+                toPlayer.money += amount;
+                updatePlayerList();
+                logMessage(`Bank paid ₹${amount} to ${toPlayer.name}`);
+                showNotification('Bank Payment', `Bank paid ₹${amount} to ${toPlayer.name}`, 'success');
+            } else if (fromId !== 'bank' && toId === 'bank') {
+                // Player paying bank
+                const fromPlayer = gameState.players[parseInt(fromId)];
+                if (fromPlayer.money < amount) {
+                    showNotification('Insufficient Funds', 'Insufficient funds for transfer!', 'error');
+                    return;
+                }
+                fromPlayer.money -= amount;
+                updatePlayerList();
+                logMessage(`${fromPlayer.name} paid ₹${amount} to Bank`);
+                showNotification('Bank Payment', `${fromPlayer.name} paid ₹${amount} to Bank`, 'info');
+            } else if (fromId !== 'bank' && toId !== 'bank') {
+                // Player to player transfer
+                const fromPlayer = gameState.players[parseInt(fromId)];
+                const toPlayer = gameState.players[parseInt(toId)];
+                
+                if (fromPlayer.money < amount) {
+                    showNotification('Insufficient Funds', 'Insufficient funds for transfer!', 'error');
+                    return;
+                }
+                
+                fromPlayer.money -= amount;
+                toPlayer.money += amount;
+                updatePlayerList();
+                logMessage(`Transferred ₹${amount} from ${fromPlayer.name} to ${toPlayer.name}`);
+                showNotification('Transfer Complete', `Transferred ₹${amount} from ${fromPlayer.name} to ${toPlayer.name}`, 'success');
+            } else {
+                showNotification('Invalid Transfer', 'Bank cannot transfer to itself!', 'error');
                 return;
             }
-
-            fromPlayer.money -= amount;
-            toPlayer.money += amount;
             
-            updatePlayerList();
-            logMessage(`Bank transferred ₹${amount} from ${fromPlayer.name} to ${toPlayer.name}`);
             document.getElementById('bankAmount').value = '';
         }
 
@@ -1306,6 +1656,18 @@
                 
                 playerList.appendChild(playerDiv);
             });
+            
+            // Save game state to localStorage for viewers
+            saveGameState();
+        }
+
+        // Save game state to localStorage
+        function saveGameState() {
+            try {
+                localStorage.setItem('monopolyGameState', JSON.stringify(gameState));
+            } catch (error) {
+                console.error('Error saving game state:', error);
+            }
         }
 
         // Update current player select
@@ -1329,14 +1691,32 @@
             const fromSelect = document.getElementById('bankFrom');
             const toSelect = document.getElementById('bankTo');
             
-            [fromSelect, toSelect].forEach(select => {
-                select.innerHTML = '';
-                gameState.players.forEach(player => {
-                    const option = document.createElement('option');
-                    option.value = player.id;
-                    option.textContent = player.name;
-                    select.appendChild(option);
-                });
+            // Clear and populate "From" select (includes Bank option)
+            fromSelect.innerHTML = '';
+            const bankOption = document.createElement('option');
+            bankOption.value = 'bank';
+            bankOption.textContent = 'Bank';
+            fromSelect.appendChild(bankOption);
+            
+            gameState.players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player.id;
+                option.textContent = player.name;
+                fromSelect.appendChild(option);
+            });
+            
+            // Clear and populate "To" select (includes Bank option)
+            toSelect.innerHTML = '';
+            const bankToOption = document.createElement('option');
+            bankToOption.value = 'bank';
+            bankToOption.textContent = 'Bank';
+            toSelect.appendChild(bankToOption);
+            
+            gameState.players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player.id;
+                option.textContent = player.name;
+                toSelect.appendChild(option);
             });
         }
 
@@ -1530,12 +1910,16 @@
                 const tokenContainer = document.getElementById(`tokens-${player.position}`);
                 if (tokenContainer) {
                     const token = document.createElement('div');
-                    token.className = 'token';
+                    token.className = `token ${player.tokenShape}`;
                     token.style.backgroundColor = player.tokenColor;
-                    token.title = player.name;
+                    token.style.borderColor = player.tokenColor;
+                    token.title = `${player.name} (${player.tokenName})`;
                     tokenContainer.appendChild(token);
                 }
             });
+            
+            // Save game state for viewers
+            saveGameState();
         }
 
         // Update property owners
@@ -1563,6 +1947,9 @@
             while (gameLog.children.length > 50) {
                 gameLog.removeChild(gameLog.lastChild);
             }
+            
+            // Save game state for viewers
+            saveGameState();
         }
 
         // Export game state
@@ -1587,13 +1974,33 @@
             logMessage('Game state exported successfully!');
         }
 
-        // Get random color for player tokens
-        function getRandomColor() {
-            const colors = [
-                '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7',
-                '#dda0dd', '#98d8c8', '#f7dc6f', '#bb8fce', '#85c1e9'
-            ];
-            return colors[Math.floor(Math.random() * colors.length)];
+        // Token configurations with shapes and colors
+        const TOKEN_CONFIGS = [
+            { shape: 'circle', color: '#ff6b6b', name: 'Red Circle' },
+            { shape: 'square', color: '#4ecdc4', name: 'Teal Square' },
+            { shape: 'diamond', color: '#45b7d1', name: 'Blue Diamond' },
+            { shape: 'triangle', color: '#96ceb4', name: 'Green Triangle' },
+            { shape: 'hexagon', color: '#ffeaa7', name: 'Yellow Hexagon' },
+            { shape: 'star', color: '#dda0dd', name: 'Purple Star' },
+            { shape: 'heart', color: '#ff9ff3', name: 'Pink Heart' },
+            { shape: 'crown', color: '#54a0ff', name: 'Blue Crown' },
+            { shape: 'rocket', color: '#5f27cd', name: 'Purple Rocket' },
+            { shape: 'car', color: '#00d2d3', name: 'Cyan Car' }
+        ];
+
+        // Get random token configuration for player tokens
+        function getRandomTokenConfig() {
+            const usedConfigs = gameState.players.map(p => p.tokenConfig);
+            const availableConfigs = TOKEN_CONFIGS.filter(config => 
+                !usedConfigs.some(used => used.shape === config.shape && used.color === config.color)
+            );
+            
+            if (availableConfigs.length === 0) {
+                // If all configs are used, just pick a random one
+                return TOKEN_CONFIGS[Math.floor(Math.random() * TOKEN_CONFIGS.length)];
+            }
+            
+            return availableConfigs[Math.floor(Math.random() * availableConfigs.length)];
         }
 
         // Initialize the game when page loads
@@ -1601,4 +2008,3 @@
     </script>
 </body>
 </html>
-
