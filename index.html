@@ -1704,12 +1704,17 @@
                     {
                         text: 'Cancel',
                         class: 'secondary',
-                        onclick: `this.closest('.notification').remove(); logMessage('${player.name} cancelled negotiation for ${space.name}')`
+                        onclick: () => {
+                            logMessage(`${player.name} cancelled negotiation for ${space.name}`);
+                            payRent(playerId, ownerId, position);
+                        }
                     },
                     {
                         text: 'Make Offer',
                         class: 'primary',
-                        onclick: `makePurchaseOffer(${playerId}, ${ownerId}, ${position})`
+                        onclick: () => {
+                            makePurchaseOffer(playerId, ownerId, position);
+                        }
                     }
                 ],
                 content
@@ -1744,12 +1749,17 @@
                     {
                         text: 'Reject',
                         class: 'secondary',
-                        onclick: `this.closest('.notification').remove(); logMessage('${owner.name} rejected ${player.name}\\'s offer for ${space.name}')`
+                        onclick: () => {
+                            logMessage(`${owner.name} rejected ${player.name}'s offer for ${space.name}`);
+                            payRent(playerId, ownerId, position);
+                        }
                     },
                     {
                         text: 'Accept',
                         class: 'primary',
-                        onclick: `this.closest('.notification').remove(); completePurchaseOffer(${playerId}, ${ownerId}, ${position}, ${offerPrice})`
+                        onclick: () => {
+                            completePurchaseOffer(playerId, ownerId, position, offerPrice);
+                        }
                     }
                 ],
                 content
@@ -3021,12 +3031,16 @@
                     {
                         text: 'Reject',
                         class: 'secondary',
-                        onclick: `this.closest('.notification').remove(); logMessage('${owner.name} rejected ${buyer.name}\\'s offer for ${space.name}')`
+                        onclick: () => {
+                            logMessage(`${owner.name} rejected ${buyer.name}'s offer for ${space.name}`);
+                        }
                     },
                     {
                         text: 'Accept',
                         class: 'primary',
-                        onclick: `this.closest('.notification').remove(); completeTrade(${ownerId}, ${buyerId}, ${propertyIndex}, ${price})`
+                        onclick: () => {
+                            completeTrade(ownerId, buyerId, propertyIndex, price);
+                        }
                     }
                 ],
                 content
@@ -3090,12 +3104,16 @@
                     {
                         text: 'Reject',
                         class: 'secondary',
-                        onclick: `this.closest('.notification').remove(); logMessage('${owner.name} rejected quick trade for ${space.name}')`
+                        onclick: () => {
+                            logMessage(`${owner.name} rejected quick trade for ${space.name}`);
+                        }
                     },
                     {
                         text: 'Accept',
                         class: 'primary',
-                        onclick: `this.closest('.notification').remove(); completeTrade(${ownerId}, ${buyerId}, ${propertyIndex}, ${marketPrice})`
+                        onclick: () => {
+                            completeTrade(ownerId, buyerId, propertyIndex, marketPrice);
+                        }
                     }
                 ],
                 content
