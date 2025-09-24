@@ -1917,17 +1917,17 @@
         function getSpaceIndex(row, col) {
             // Top row (0): spaces 1-9 (left to right)
             if (row === 0 && col > 0 && col < 10) return col;
-            // Right column (10): spaces 11-19 (top to bottom)
+            // Right column (10): spaces 10-19 (top to bottom)
             if (col === 10 && row > 0 && row < 10) return 10 + row;
-            // Bottom row (10): spaces 21-29 (right to left)
-            if (row === 10 && col > 0 && col < 10) return 30 - col;
-            // Left column (0): spaces 31-39 (bottom to top)
+            // Bottom row (10): spaces 20-29 (right to left)
+            if (row === 10 && col > 0 && col < 10) return 20 + (10 - col);
+            // Left column (0): spaces 30-39 (bottom to top)
             if (col === 0 && row > 0 && row < 10) return 40 - row;
             // Corners
             if (row === 0 && col === 0) return 0; // GO
             if (row === 0 && col === 10) return 10; // Jail
-            if (row === 10 && col === 0) return 20; // Free Parking
-            if (row === 10 && col === 10) return 30; // Go to Jail
+            if (row === 10 && col === 0) return 30; // Go to Jail
+            if (row === 10 && col === 10) return 20; // Free Parking
             
             return -1; // Center area
         }
