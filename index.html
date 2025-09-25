@@ -58,17 +58,13 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(45deg, var(--secondary-bg), #2d3748);
-            border-radius: 12px;
+            width: 300px;
+            height: 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            border: 2px solid var(--accent-color);
-            overflow: hidden;
             z-index: 10;
         }
 
@@ -83,12 +79,64 @@
         }
 
         .logo-image {
-            max-width: 180px;
-            max-height: 120px;
-            width: auto;
-            height: auto;
+            width: 500px;
+            height: 250px;
             object-fit: contain;
+            transform: rotate(45deg);
+            position: absolute;
+            top: 50%;
+            left: 63%;
+            margin-top: -150px;
+            margin-left: -250px;
+            z-index: 100;
+            border-radius: 0;
+        }
+
+        /* Card designs for Community Chest and Chance */
+        .card-design {
+            position: absolute;
+            width: 100px;
+            height: 150px;
             border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: rotate(45deg);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #333;
+        }
+
+        .community-chest-card {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            top: 5%;
+            left: 99%;
+            margin-top: -100px;
+            margin-left: -40px;
+        }
+
+        .chance-card {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+            top: 99%;
+            left: 15%;
+            margin-top: -60px;
+            margin-left: -100px;
+        }
+
+        .card-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .card-text {
+            font-size: 8px;
+            line-height: 1.1;
+            padding: 0 4px;
         }
 
         .board-center p {
@@ -99,8 +147,8 @@
 
         .board-grid {
             display: grid;
-            grid-template-columns: 80px repeat(9, 1fr) 80px;
-            grid-template-rows: 80px repeat(9, 1fr) 80px;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
             gap: 2px;
             width: 100%;
             height: 100%;
@@ -120,6 +168,8 @@
             cursor: pointer;
             transition: all 0.2s ease;
             position: relative;
+            min-width: 0;
+            min-height: 0;
         }
 
         .board-space:hover {
@@ -128,27 +178,27 @@
         }
 
         .board-space.property {
-            border-left: 4px solid var(--accent-color);
+            border-left: 10px solid var(--accent-color);
         }
 
         .board-space.railroad {
-            border-left: 4px solid #8b5cf6;
+            border-left: 10px solid #8b5cf6;
         }
 
         .board-space.utility {
-            border-left: 4px solid #06b6d4;
+            border-left: 10px solid #06b6d4;
         }
 
         .board-space.chance {
-            border-left: 4px solid #f59e0b;
+            border-left: 10px solid #f59e0b;
         }
 
         .board-space.community {
-            border-left: 4px solid #ef4444;
+            border-left: 10px solid #ef4444;
         }
 
         .board-space.tax {
-            border-left: 4px solid #6b7280;
+            border-left: 10px solid #6b7280;
         }
 
         .space-name {
@@ -987,6 +1037,55 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Jail transition animations */
+        .jail-transition {
+            animation: jailTransition 2s ease-in-out;
+        }
+
+        @keyframes jailTransition {
+            0% { 
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1);
+            }
+            25% { 
+                transform: scale(1.2) rotate(5deg);
+                filter: brightness(1.5) hue-rotate(90deg);
+            }
+            50% { 
+                transform: scale(0.8) rotate(-5deg);
+                filter: brightness(0.5) hue-rotate(180deg);
+            }
+            75% { 
+                transform: scale(1.1) rotate(3deg);
+                filter: brightness(1.2) hue-rotate(270deg);
+            }
+            100% { 
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1);
+            }
+        }
+
+        .jail-notification {
+            animation: jailNotification 0.8s ease-in-out;
+            border: 3px solid #ef4444 !important;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%) !important;
+        }
+
+        @keyframes jailNotification {
+            0% { 
+                transform: scale(0.5) rotate(-10deg);
+                opacity: 0;
+            }
+            50% { 
+                transform: scale(1.1) rotate(5deg);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
         
         /* Log container styling */
         .log-container {
@@ -1100,18 +1199,47 @@
             }
             
             .board-grid {
-                grid-template-columns: 60px repeat(9, 1fr) 60px;
-                grid-template-rows: 60px repeat(9, 1fr) 60px;
+                grid-template-columns: repeat(11, 1fr);
+                grid-template-rows: repeat(11, 1fr);
             }
             
             .board-center {
-                width: 150px;
-                height: 150px;
+                width: 200px;
+                height: 200px;
             }
             
             .logo-image {
-                max-width: 120px;
-                max-height: 80px;
+                width: 360px;
+                height: 200px;
+                margin-top: -100px;
+                margin-left: -180px;
+            }
+
+            .card-design {
+                width: 60px;
+                height: 90px;
+            }
+
+            .community-chest-card {
+                top: 10%;
+                left: 70%;
+                margin-top: -45px;
+                margin-left: -30px;
+            }
+
+            .chance-card {
+                top: 90%;
+                left: 10%;
+                margin-top: -45px;
+                margin-left: -30px;
+            }
+
+            .card-icon {
+                font-size: 18px;
+            }
+
+            .card-text {
+                font-size: 6px;
             }
         }
 
@@ -1212,6 +1340,10 @@
                 <div class="menu-icon">🏦</div>
                 <div class="menu-text">Bank Control</div>
             </div>
+            <div class="hamburger-menu-item" onclick="exportGameStats()">
+                <div class="menu-icon">📊</div>
+                <div class="menu-text">Export Game Stats</div>
+            </div>
         </div>
     </div>
 
@@ -1220,9 +1352,18 @@
         <div class="game-board">
             <div class="board-center">
                 <div class="logo-container">
-                    <img src="gridgrab.png" alt="GRID GRAB Logo" class="logo-image">
+                    <img src="C:\Users\nirbh\Desktop\gridgrab.png?v=1" alt="GRID GRAB Logo" class="logo-image">
                 </div>
-                <p>Monopoly Edition</p>
+                <!-- Community Chest Card -->
+                <div class="card-design community-chest-card">
+                    <div class="card-icon">🏦</div>
+                    <div class="card-text">COMMUNITY<br>CHEST</div>
+                </div>
+                <!-- Chance Card -->
+                <div class="card-design chance-card">
+                    <div class="card-icon">🎲</div>
+                    <div class="card-text">CHANCE</div>
+                </div>
             </div>
             <div class="board-grid" id="boardGrid">
                 <!-- Board spaces will be generated by JavaScript -->
@@ -1314,7 +1455,7 @@
                         <div style="flex: 1;">
                             <div style="font-weight: 700; color: var(--accent-color); font-size: 16px;" id="currentPlayerName">Select Player</div>
                             <div style="font-size: 12px; color: var(--text-secondary);" id="currentPlayerPosition">Position: Not Set</div>
-                            <div style="font-size: 12px; color: var(--success);" id="currentPlayerMoney">Money: ₹0</div>
+                            <div style="font-size: 12px; color: var(--success);" id="currentPlayerMoney">Money: $0</div>
                         </div>
                     </div>
                 </div>
@@ -1451,46 +1592,46 @@
 
         // Board Configuration
         const BOARD_SPACES = [
-            { name: 'GO', type: 'go', price: 0, rent: 0 },
-            { name: 'Mediterranean Ave', type: 'property', price: 60, rent: 6 },
-            { name: 'Community Chest', type: 'community', price: 0, rent: 0 },
-            { name: 'Baltic Ave', type: 'property', price: 60, rent: 6 },
-            { name: 'Income Tax', type: 'tax', price: 0, rent: 200 },
-            { name: 'Reading Railroad', type: 'railroad', price: 200, rent: 25 },
-            { name: 'Oriental Ave', type: 'property', price: 100, rent: 10 },
-            { name: 'Chance', type: 'chance', price: 0, rent: 0 },
-            { name: 'Vermont Ave', type: 'property', price: 100, rent: 10 },
-            { name: 'Connecticut Ave', type: 'property', price: 120, rent: 12 },
-            { name: 'Jail', type: 'jail', price: 0, rent: 0 },
-            { name: 'St. Charles Place', type: 'property', price: 140, rent: 14 },
-            { name: 'Electric Company', type: 'utility', price: 150, rent: 0 },
-            { name: 'States Ave', type: 'property', price: 140, rent: 14 },
-            { name: 'Virginia Ave', type: 'property', price: 160, rent: 16 },
-            { name: 'Pennsylvania Railroad', type: 'railroad', price: 200, rent: 25 },
-            { name: 'St. James Place', type: 'property', price: 180, rent: 18 },
-            { name: 'Community Chest', type: 'community', price: 0, rent: 0 },
-            { name: 'Tennessee Ave', type: 'property', price: 180, rent: 18 },
-            { name: 'New York Ave', type: 'property', price: 200, rent: 20 },
-            { name: 'Free Parking', type: 'parking', price: 0, rent: 0 },
-            { name: 'Kentucky Ave', type: 'property', price: 220, rent: 22 },
-            { name: 'Chance', type: 'chance', price: 0, rent: 0 },
-            { name: 'Indiana Ave', type: 'property', price: 220, rent: 22 },
-            { name: 'Illinois Ave', type: 'property', price: 240, rent: 24 },
-            { name: 'B. & O. Railroad', type: 'railroad', price: 200, rent: 25 },
-            { name: 'Atlantic Ave', type: 'property', price: 260, rent: 26 },
-            { name: 'Ventnor Ave', type: 'property', price: 260, rent: 26 },
-            { name: 'Water Works', type: 'utility', price: 150, rent: 0 },
-            { name: 'Marvin Gardens', type: 'property', price: 280, rent: 28 },
-            { name: 'Go to Jail', type: 'gotojail', price: 0, rent: 0 },
-            { name: 'Pacific Ave', type: 'property', price: 300, rent: 30 },
-            { name: 'North Carolina Ave', type: 'property', price: 300, rent: 30 },
-            { name: 'Community Chest', type: 'community', price: 0, rent: 0 },
-            { name: 'Pennsylvania Ave', type: 'property', price: 320, rent: 32 },
-            { name: 'Short Line', type: 'railroad', price: 200, rent: 25 },
-            { name: 'Chance', type: 'chance', price: 0, rent: 0 },
-            { name: 'Park Place', type: 'property', price: 350, rent: 35 },
-            { name: 'Luxury Tax', type: 'tax', price: 0, rent: 100 },
-            { name: 'Boardwalk', type: 'property', price: 400, rent: 40 }
+            { name: 'Survivor HQ', type: 'go', price: 0, rent: 0 },
+            { name: 'Community Garden', type: 'property', price: 60, rent: 21 },
+            { name: 'Survivor Encounter', type: 'chance', price: 0, rent: 0 },
+            { name: 'Rainwater Tank', type: 'property', price: 60, rent: 21 },
+            { name: 'Resource Levy', type: 'tax', price: 0, rent: 200 },
+            { name: 'Skytram Line', type: 'railroad', price: 200, rent: 70 },
+            { name: 'Seed Bank', type: 'property', price: 100, rent: 35 },
+            { name: 'Survivor Encounter', type: 'chance', price: 0, rent: 0 },
+            { name: 'Hydroponic Farm', type: 'property', price: 120, rent: 42 },
+            { name: 'Aquaponic Greenhouse', type: 'property', price: 140, rent: 49 },
+            { name: 'Quarantine', type: 'jail', price: 0, rent: 0 },
+            { name: 'Field Clinic', type: 'property', price: 160, rent: 56 },
+            { name: 'Greywater Recycling', type: 'utility', price: 180, rent: 0 },
+            { name: 'Scarcity Alert', type: 'community', price: 0, rent: 0 },
+            { name: 'Vaccine Lab', type: 'property', price: 200, rent: 70 },
+            { name: 'Subterranean Tunnel', type: 'railroad', price: 200, rent: 70 },
+            { name: 'Bioreactor Unit', type: 'property', price: 220, rent: 77 },
+            { name: 'Survivor Encounter', type: 'chance', price: 0, rent: 0 },
+            { name: 'Greywater Recycling', type: 'property', price: 180, rent: 63 },
+            { name: 'Water Purification Plant', type: 'property', price: 200, rent: 70 },
+            { name: 'Supply Depot', type: 'parking', price: 0, rent: 0 },
+            { name: 'Bio-compost Facility', type: 'property', price: 220, rent: 77 },
+            { name: 'Solar Microgrid', type: 'property', price: 240, rent: 84 },
+            { name: 'Survivor Encounter', type: 'chance', price: 0, rent: 0 },
+            { name: 'Wind Turbine Field', type: 'property', price: 260, rent: 91 },
+            { name: 'Drone Landing Pad', type: 'railroad', price: 200, rent: 70 },
+            { name: 'Biogas Plant', type: 'property', price: 280, rent: 98 },
+            { name: 'Scarcity Alert', type: 'community', price: 0, rent: 0 },
+            { name: 'Microbial Fuel Cell Lab', type: 'property', price: 300, rent: 105 },
+            { name: 'CRISPR Research Hub', type: 'property', price: 320, rent: 112 },
+            { name: 'System Failure', type: 'gotojail', price: 0, rent: 0 },
+            { name: 'Bioinformatics Data Center', type: 'property', price: 340, rent: 119 },
+            { name: 'Modular Housing Block', type: 'property', price: 360, rent: 126 },
+            { name: 'Survivor Encounter', type: 'chance', price: 0, rent: 0 },
+            { name: 'Eco-Dome Complex', type: 'property', price: 380, rent: 133 },
+            { name: 'Solar Road', type: 'railroad', price: 200, rent: 70 },
+            { name: 'Central Storage Facility', type: 'property', price: 400, rent: 140 },
+            { name: 'Maintenance Dues', type: 'tax', price: 0, rent: 100 },
+            { name: 'Central Control Tower', type: 'property', price: 420, rent: 147 },
+            { name: 'Global Communication Hub', type: 'property', price: 450, rent: 158 }
         ];
 
         // Notification System
@@ -1620,10 +1761,10 @@
                 player.money -= space.price;
                 space.owner = player.id;
                 player.properties.push(position);
-                logMessage(`${player.name} bought ${space.name} for ₹${space.price}`);
+                logMessage(`${player.name} bought ${space.name} for $${space.price}`);
                 updatePropertyOwners();
                 updatePlayerList();
-                showNotification('Property Purchased', `${player.name} bought ${space.name} for ₹${space.price}`, 'success');
+                showNotification('Property Purchased', `${player.name} bought ${space.name} for $${space.price}`, 'success');
             } else {
                 showNotification('Insufficient Funds', `${player.name} doesn't have enough money to buy ${space.name}`, 'error');
             }
@@ -1645,9 +1786,9 @@
             const paid = Math.min(player.money, rent);
             player.money -= paid;
             owner.money += paid;
-            logMessage(`${player.name} paid ₹${paid} rent to ${owner.name} for ${space.name}`);
+            logMessage(`${player.name} paid $${paid} rent to ${owner.name} for ${space.name}`);
             updatePlayerList();
-            showNotification('Rent Paid', `${player.name} paid ₹${paid} rent to ${owner.name}`, 'info');
+            showNotification('Rent Paid', `${player.name} paid $${paid} rent to ${owner.name}`, 'info');
         }
 
         // Negotiate purchase function
@@ -1671,8 +1812,8 @@
                     </div>
                 </div>
                 <div style="font-size: 10px; color: var(--text-secondary); margin-top: 8px;">
-                    Property Value: ₹${space.price} | Market Value: ₹${marketPrice}<br>
-                    Your Money: ₹${player.money} | Owner's Money: ₹${owner.money}
+                    Property Value: $${space.price} | Market Value: $${marketPrice}<br>
+                    Your Money: $${player.money} | Owner's Money: $${owner.money}
                 </div>
             `;
             
@@ -1716,14 +1857,14 @@
             // Show offer to owner
             const content = `
                 <div style="font-size: 10px; color: var(--text-secondary); margin: 8px 0;">
-                    ${player.name} offers ₹${offerPrice} for ${space.name}<br>
-                    Original Price: ₹${space.price} | Your Profit: ₹${offerPrice - space.price}
+                    ${player.name} offers $${offerPrice} for ${space.name}<br>
+                    Original Price: $${space.price} | Your Profit: $${offerPrice - space.price}
                 </div>
             `;
             
             showNotification(
                 'Purchase Offer',
-                `${player.name} wants to buy ${space.name} for ₹${offerPrice}`,
+                `${player.name} wants to buy ${space.name} for $${offerPrice}`,
                 'warning',
                 [
                     {
@@ -1765,8 +1906,8 @@
             updatePropertyTradingSelects();
             updatePlayerList();
             
-            showNotification('Purchase Completed', `${player.name} bought ${space.name} from ${owner.name} for ₹${price}`, 'success');
-            logMessage(`${player.name} bought ${space.name} from ${owner.name} for ₹${price}`);
+            showNotification('Purchase Completed', `${player.name} bought ${space.name} from ${owner.name} for $${price}`, 'success');
+            logMessage(`${player.name} bought ${space.name} from ${owner.name} for $${price}`);
         }
 
         // Complete trade function
@@ -1788,8 +1929,8 @@
             updatePropertyTradingSelects();
             updatePlayerList();
             
-            showNotification('Trade Completed', `${buyer.name} bought ${space.name} from ${owner.name} for ₹${price}`, 'success');
-            logMessage(`${buyer.name} bought ${space.name} from ${owner.name} for ₹${price}`);
+            showNotification('Trade Completed', `${buyer.name} bought ${space.name} from ${owner.name} for $${price}`, 'success');
+            logMessage(`${buyer.name} bought ${space.name} from ${owner.name} for $${price}`);
             document.getElementById('propertyPrice').value = '';
         }
 
@@ -1937,7 +2078,7 @@
                         
                         cell.innerHTML = `
                             <div class="space-name">${space.name}</div>
-                            <div class="space-price">${space.price > 0 ? '₹' + space.price : space.type}</div>
+                            <div class="space-price">${space.price > 0 ? '$' + space.price : space.type}</div>
                             <div class="space-tokens" id="tokens-${spaceIndex}"></div>
                             <div class="property-owner" id="owner-${spaceIndex}"></div>
                         `;
@@ -2019,7 +2160,7 @@
             updateCurrentPlayerSelect();
             updateBankSelects();
             updatePropertyTradingSelects();
-            logMessage(`Game started with ${playerCount} players, ₹${startingMoney} each.`);
+            logMessage(`Game started with ${playerCount} players, $${startingMoney} each.`);
         }
 
         // Move current player
@@ -2169,7 +2310,7 @@
                 // Check if passed GO (only for forward movement)
                 if (player.position < startPosition) {
                     player.money += 200;
-                    logMessage(`${player.name} passed GO and collected ₹200!`);
+                    logMessage(`${player.name} passed GO and collected $200!`);
                 }
                 
                 logMessage(`${player.name} moved forward ${moveAmount} spaces to ${BOARD_SPACES[player.position].name}`);
@@ -2203,7 +2344,7 @@
                         // Offer to buy
                         showNotification(
                             'Property Available',
-                            `${player.name}, ${space.name} is available for ₹${space.price}. Buy it?`,
+                            `${player.name}, ${space.name} is available for $${space.price}. Buy it?`,
                             'warning',
                             [
                                 {
@@ -2230,7 +2371,7 @@
                         
                         showNotification(
                             'Property Owned',
-                            `${player.name} landed on ${owner.name}'s property: ${space.name}\n\nRent: ₹${rent}\nMarket Value: ₹${marketPrice}`,
+                            `${player.name} landed on ${owner.name}'s property: ${space.name}\n\nRent: $${rent}\nMarket Value: $${marketPrice}`,
                             'warning',
                             [
                                 {
@@ -2255,7 +2396,12 @@
                 case 'tax':
                     const taxAmount = space.rent;
                     player.money -= taxAmount;
-                    logMessage(`${player.name} paid ₹${taxAmount} tax`);
+                    logMessage(`${player.name} paid $${taxAmount} tax`);
+                    showNotification(
+                        'Tax Payment',
+                        `${player.name} landed on ${space.name}!\n\nPaid $${taxAmount} in taxes.`,
+                        'warning'
+                    );
                     break;
                     
                 case 'chance':
@@ -2280,14 +2426,14 @@
                     logMessage(`${player.name} landed on Jail. Choose to pay rent or lose one turn.`);
                     showNotification(
                         'Jail',
-                        `${player.name} landed on Jail!\n\nYou must either:\n• Pay ₹50 rent to get out immediately\n• Or lose one turn and stay in jail\n\nPlease choose your action manually.`,
+                        `${player.name} landed on Jail!\n\nYou must either:\n• Pay $50 rent to get out immediately\n• Or lose one turn and stay in jail\n\nPlease choose your action manually.`,
                         'warning',
                         [
                             {
-                                text: 'Pay Rent (₹50)',
+                                text: 'Pay Rent ($50)',
                                 class: 'primary',
                                 onclick: () => {
-                                    logMessage(`${player.name} chose to pay ₹50 rent to get out of jail`);
+                                    logMessage(`${player.name} chose to pay $50 rent to get out of jail`);
                                 }
                             },
                             {
@@ -2302,9 +2448,74 @@
                     break;
                     
                 case 'gotojail':
-                    player.position = 10;
-                    player.inJail = true;
-                    logMessage(`${player.name} was sent to Jail!`);
+                    // Add transition animation to the player's token
+                    const playerToken = document.querySelector(`[data-player-id="${player.id}"]`);
+                    if (playerToken) {
+                        playerToken.classList.add('jail-transition');
+                        // Remove animation class after animation completes
+                        setTimeout(() => {
+                            playerToken.classList.remove('jail-transition');
+                        }, 2000);
+                    }
+                    
+                    // Show transition notification
+                    showNotification(
+                        'System Failure!',
+                        `${player.name} has encountered a critical system failure!`,
+                        'error'
+                    );
+                    
+                    // Add special styling to the notification
+                    setTimeout(() => {
+                        const notifications = document.querySelectorAll('.notification');
+                        const lastNotification = notifications[notifications.length - 1];
+                        if (lastNotification) {
+                            lastNotification.classList.add('jail-notification');
+                        }
+                    }, 100);
+                    
+                    // Wait for animation to complete, then move to jail
+                    setTimeout(() => {
+                        player.position = 10;
+                        player.inJail = true;
+                        logMessage(`${player.name} was sent to Quarantine due to system failure!`);
+                        
+                        // Show jail notification
+                        showNotification(
+                            'Quarantine',
+                            `${player.name} has been placed in Quarantine!\n\nYou must either:\n• Pay $50 to get out immediately\n• Or lose one turn and stay in quarantine\n\nPlease choose your action manually.`,
+                            'warning',
+                            [
+                                {
+                                    text: 'Pay $50',
+                                    class: 'primary',
+                                    onclick: () => {
+                                        if (player.money >= 50) {
+                                            player.money -= 50;
+                                            player.inJail = false;
+                                            logMessage(`${player.name} paid $50 to get out of quarantine`);
+                                            updatePlayerList();
+                                            showNotification('Released', `${player.name} has been released from quarantine!`, 'success');
+                                        } else {
+                                            showNotification('Insufficient Funds', `${player.name} doesn't have enough money to pay the fine!`, 'error');
+                                        }
+                                    }
+                                },
+                                {
+                                    text: 'Stay in Quarantine',
+                                    class: 'secondary',
+                                    onclick: () => {
+                                        logMessage(`${player.name} chose to stay in quarantine for one turn`);
+                                        showNotification('Quarantine Extended', `${player.name} will remain in quarantine for one turn`, 'info');
+                                    }
+                                }
+                            ]
+                        );
+                        
+                        // Update player position and tokens
+                        updateTokensWithAnimation(player);
+                        updatePlayerList();
+                    }, 2000);
                     break;
             }
         }
@@ -2351,8 +2562,8 @@
                 const toPlayer = gameState.players[parseInt(toId)];
                 toPlayer.money += amount;
                 updatePlayerList();
-                logMessage(`Bank paid ₹${amount} to ${toPlayer.name}`);
-                showNotification('Bank Payment', `Bank paid ₹${amount} to ${toPlayer.name}`, 'success');
+                logMessage(`Bank paid $${amount} to ${toPlayer.name}`);
+                showNotification('Bank Payment', `Bank paid $${amount} to ${toPlayer.name}`, 'success');
             } else if (fromId !== 'bank' && toId === 'bank') {
                 // Player paying bank
                 const fromPlayer = gameState.players[parseInt(fromId)];
@@ -2362,8 +2573,8 @@
                 }
                 fromPlayer.money -= amount;
                 updatePlayerList();
-                logMessage(`${fromPlayer.name} paid ₹${amount} to Bank`);
-                showNotification('Bank Payment', `${fromPlayer.name} paid ₹${amount} to Bank`, 'info');
+                logMessage(`${fromPlayer.name} paid $${amount} to Bank`);
+                showNotification('Bank Payment', `${fromPlayer.name} paid $${amount} to Bank`, 'info');
             } else if (fromId !== 'bank' && toId !== 'bank') {
                 // Player to player transfer
                 const fromPlayer = gameState.players[parseInt(fromId)];
@@ -2377,8 +2588,8 @@
                 fromPlayer.money -= amount;
                 toPlayer.money += amount;
                 updatePlayerList();
-                logMessage(`Transferred ₹${amount} from ${fromPlayer.name} to ${toPlayer.name}`);
-                showNotification('Transfer Complete', `Transferred ₹${amount} from ${fromPlayer.name} to ${toPlayer.name}`, 'success');
+                logMessage(`Transferred $${amount} from ${fromPlayer.name} to ${toPlayer.name}`);
+                showNotification('Transfer Complete', `Transferred $${amount} from ${fromPlayer.name} to ${toPlayer.name}`, 'success');
             } else {
                 showNotification('Invalid Transfer', 'Bank cannot transfer to itself!', 'error');
                 return;
@@ -2393,7 +2604,7 @@
             const owner = space.owner !== undefined ? gameState.players[space.owner].name : 'None';
             showNotification(
                 'Space Details',
-                `${space.name}\nType: ${space.type}\nPrice: ₹${space.price}\nRent: ₹${space.rent}\nOwner: ${owner}`,
+                `${space.name}\nType: ${space.type}\nPrice: $${space.price}\nRent: $${space.rent}\nOwner: ${owner}`,
                 'info'
             );
         }
@@ -2423,7 +2634,7 @@
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        <div class="player-money">₹${player.money}</div>
+                        <div class="player-money">$${player.money}</div>
                         <button class="edit-name-btn" onclick="editPlayerName(${player.id})" title="Edit name">✏️</button>
                     </div>
                 `;
@@ -2473,7 +2684,7 @@
                 
                 document.getElementById('currentPlayerName').textContent = player.name;
                 document.getElementById('currentPlayerPosition').textContent = `Position: ${player.position} (${space.name})`;
-                document.getElementById('currentPlayerMoney').textContent = `Money: ₹${player.money}`;
+                document.getElementById('currentPlayerMoney').textContent = `Money: $${player.money}`;
                 
                 // Update token display
                 const token = document.getElementById('currentPlayerToken');
@@ -2820,7 +3031,7 @@
                     const space = BOARD_SPACES[propertyIndex];
                     const option = document.createElement('option');
                     option.value = propertyIndex;
-                    option.textContent = `${space.name} (₹${space.price})`;
+                    option.textContent = `${space.name} ($${space.price})`;
                     propertySelect.appendChild(option);
                 });
             }
@@ -2871,8 +3082,8 @@
             const content = `
                 <div style="font-size: 10px; color: var(--text-secondary); margin: 8px 0;">
                     Property: ${space.name}<br>
-                    Original Price: ₹${space.price} | Offer Price: ₹${price}<br>
-                    Profit for Owner: ₹${price - space.price}
+                    Original Price: $${space.price} | Offer Price: $${price}<br>
+                    Profit for Owner: $${price - space.price}
                 </div>
             `;
             
@@ -2944,8 +3155,8 @@
             const content = `
                 <div style="font-size: 10px; color: var(--text-secondary); margin: 8px 0;">
                     Property: ${space.name}<br>
-                    Market Price: ₹${marketPrice} (20% premium)<br>
-                    Original Price: ₹${space.price} | Profit: ₹${marketPrice - space.price}
+                    Market Price: $${marketPrice} (20% premium)<br>
+                    Original Price: $${space.price} | Profit: $${marketPrice - space.price}
                 </div>
             `;
 
@@ -3138,6 +3349,58 @@
             }
             
             return availableConfigs[Math.floor(Math.random() * availableConfigs.length)];
+        }
+
+        // Export game statistics to Excel
+        function exportGameStats() {
+            try {
+                // Check if gameState is available
+                if (typeof gameState === 'undefined' || !gameState) {
+                    showNotification('Export Error', 'Game not initialized yet. Please start a game first.', 'error');
+                    return;
+                }
+
+                // Create simple CSV content instead of complex Excel XML
+                let csvContent = 'Game Information,Value\n';
+                csvContent += 'Game Name,Survival Monopoly\n';
+                csvContent += 'Current Turn,' + ((gameState.currentPlayerIndex || 0) + 1) + '\n';
+                csvContent += 'Current Player,' + ((gameState.players && gameState.players[gameState.currentPlayerIndex]) ? gameState.players[gameState.currentPlayerIndex].name : 'No Player') + '\n';
+                csvContent += 'Game Status,' + (gameState.gameStarted ? 'Active' : 'Not Started') + '\n';
+                csvContent += 'Total Players,' + (gameState.players ? gameState.players.length : 0) + '\n';
+                csvContent += 'Export Date,' + new Date().toLocaleString() + '\n\n';
+                
+                // Add player information
+                csvContent += 'Player Information\n';
+                csvContent += 'Name,Money,Position,Status,Properties Owned\n';
+                if (gameState.players) {
+                    gameState.players.forEach(player => {
+                        csvContent += player.name + ',' + player.money + ',' + player.position + ',' + (player.inJail ? 'In Quarantine' : 'Active') + ',' + (player.properties ? player.properties.length : 0) + '\n';
+                    });
+                }
+                
+                csvContent += '\nAll Properties\n';
+                csvContent += 'ID,Name,Type,Price,Rent,Owner\n';
+                BOARD_SPACES.forEach((space, index) => {
+                    const ownerName = space.owner ? (gameState.players ? gameState.players.find(p => p.id === space.owner)?.name || 'Unknown' : 'Unknown') : 'Bank';
+                    csvContent += index + ',' + space.name + ',' + space.type + ',' + space.price + ',' + space.rent + ',' + ownerName + '\n';
+                });
+                
+                // Create and download the file
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Survival_Monopoly_Game_Stats_' + new Date().toISOString().split('T')[0] + '.csv';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                showNotification('Export Complete', 'Game statistics have been exported to CSV file!', 'success');
+            } catch (error) {
+                console.error('Export error:', error);
+                showNotification('Export Error', 'Failed to export game statistics. Please try again.', 'error');
+            }
         }
 
         // Initialize the game when page loads
