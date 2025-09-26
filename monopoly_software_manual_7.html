@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survival Monopoly - Game Manual & Property Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0f1c 0%, #1a1f3a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #a0aec0;
+        }
+
+        .section {
+            background: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #ffd700;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #87CEEB;
+            font-size: 1.5em;
+            margin: 20px 0 15px 0;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .property-card {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .property-card.brown { border-left-color: #8B4513; }
+        .property-card.light-blue { border-left-color: #87CEEB; }
+        .property-card.pink { border-left-color: #FFC0CB; }
+        .property-card.orange { border-left-color: #FFA500; }
+        .property-card.red { border-left-color: #FF0000; }
+        .property-card.yellow { border-left-color: #FFFF00; }
+        .property-card.green { border-left-color: #008000; }
+        .property-card.dark-blue { border-left-color: #000080; }
+        .property-card.railroad { border-left-color: #6B46C1; }
+        .property-card.utility { border-left-color: #06b6d4; }
+        .property-card.chance { border-left-color: #FF1493; }
+        .property-card.community { border-left-color: #20B2AA; }
+        .property-card.tax { border-left-color: #808080; }
+
+        .property-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .property-details {
+            margin-bottom: 10px;
+        }
+
+        .property-details span {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .property-description {
+            color: #a0aec0;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu-list li {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-list li strong {
+            color: #ffd700;
+            font-size: 1.1em;
+        }
+
+        .special-spaces {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .special-space {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .special-space h4 {
+            color: #ffd700;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .quarantine-info {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #ef4444;
+        }
+
+        .quarantine-info h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .quarantine-info ul {
+            margin-left: 20px;
+        }
+
+        .quarantine-info li {
+            margin: 8px 0;
+            color: #fecaca;
+        }
+
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .color-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 10px;
+            border: 2px solid #fff;
+        }
+
+        .toc {
+            background: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .toc h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #87CEEB;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .toc a:hover {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+        }
+
+        /* Board Visualization Styles */
+        .board-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .monopoly-board {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            width: 800px;
+            height: 800px;
+            background: #1a2332;
+            border: 3px solid #ffd700;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .board-row {
+            display: grid;
+            grid-template-columns: 80px repeat(9, 1fr) 80px;
+            height: 80px;
+        }
+
+        .board-middle {
+            display: grid;
+            grid-template-columns: 80px 1fr 80px;
+            flex: 1;
+        }
+
+        .board-column {
+            display: grid;
+            grid-template-rows: repeat(9, 1fr);
+            width: 80px;
+        }
+
+        .board-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            border: 2px solid #ffd700;
+            margin: 10px;
+            border-radius: 8px;
+        }
+
+        .center-logo {
+            text-align: center;
+            color: #ffd700;
+        }
+
+        .center-logo h3 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .center-logo p {
+            font-size: 0.9em;
+            color: #a0aec0;
+        }
+
+        .corner-space, .property-space, .chance-space, .community-space, .railroad-space, .utility-space, .tax-space {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            border: 1px solid #334155;
+            text-align: center;
+            font-size: 0.7em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .corner-space {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            border: 2px solid #ffd700;
+        }
+
+        .corner-space.go {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .corner-space.jail {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .corner-space.go-to-jail {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+        }
+
+        .corner-space.parking {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        }
+
+        .property-space {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+        }
+
+        .property-space.brown { border-top: 4px solid #8B4513; }
+        .property-space.light-blue { border-top: 4px solid #87CEEB; }
+        .property-space.pink { border-left: 4px solid #FFC0CB; }
+        .property-space.orange { border-left: 4px solid #FFA500; }
+        .property-space.red { border-left: 4px solid #FF0000; }
+        .property-space.yellow { border-bottom: 4px solid #FFFF00; }
+        .property-space.green { border-bottom: 4px solid #008000; }
+        .property-space.dark-blue { border-bottom: 4px solid #000080; }
+
+        .chance-space {
+            background: linear-gradient(135deg, #FF1493 0%, #DC143C 100%);
+            color: white;
+        }
+
+        .community-space {
+            background: linear-gradient(135deg, #20B2AA 0%, #008B8B 100%);
+            color: white;
+        }
+
+        .railroad-space {
+            background: linear-gradient(135deg, #6B46C1 0%, #553C9A 100%);
+            color: white;
+        }
+
+        .utility-space {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+        }
+
+        .tax-space {
+            background: linear-gradient(135deg, #808080 0%, #6b7280 100%);
+            color: white;
+        }
+
+        .space-number {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffd700;
+            padding: 1px 3px;
+            border-radius: 3px;
+            font-size: 0.6em;
+            font-weight: bold;
+        }
+
+        .space-name {
+            font-weight: bold;
+            font-size: 0.65em;
+            line-height: 1.1;
+            margin-bottom: 2px;
+            word-wrap: break-word;
+        }
+
+        .space-type {
+            font-size: 0.6em;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 2px;
+        }
+
+        .space-price, .space-rent {
+            font-size: 0.55em;
+            color: #a0aec0;
+        }
+
+        .space-description {
+            font-size: 0.5em;
+            color: #87CEEB;
+            font-style: italic;
+        }
+
+        /* Responsive adjustments for board */
+        @media (max-width: 1000px) {
+            .monopoly-board {
+                width: 600px;
+                height: 600px;
+            }
+            
+            .board-row {
+                height: 60px;
+            }
+            
+            .board-column {
+                width: 60px;
+            }
+            
+            .space-name {
+                font-size: 0.5em;
+            }
+            
+            .space-price, .space-rent {
+                font-size: 0.45em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .monopoly-board {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .board-row {
+                height: 40px;
+            }
+            
+            .board-column {
+                width: 40px;
+            }
+            
+            .space-name {
+                font-size: 0.4em;
+            }
+            
+            .space-price, .space-rent {
+                font-size: 0.35em;
+            }
+            
+            .center-logo h3 {
+                font-size: 1em;
+            }
+            
+            .center-logo p {
+                font-size: 0.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏗️ Survival Monopoly</h1>
+            <p>Complete Game Manual & Property Guide</p>
+        </div>
+        
+        <div class="toc">
+            <h2>📋 Table of Contents</h2>
+            <ul>
+                <li><a href="#game-board">🎯 Complete Game Board</a></li>
+                <li><a href="#properties">🏘️ Property List & Details</a></li>
+                <li><a href="#special-spaces">🎯 Special Spaces</a></li>
+                <li><a href="#color-system">🎨 Color System</a></li>
+                <li><a href="#game-menus">🎮 Game Menus & Controls</a></li>
+                <li><a href="#quarantine-system">🚨 Quarantine & System Failure</a></li>
+                <li><a href="#game-mechanics">⚙️ Game Mechanics</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="game-board">
+            <h2>🎯 Complete Game Board</h2>
+            <p>Here's the complete Survival Monopoly board layout with all spaces numbered and color-coded:</p>
+            
+            <div class="board-container">
+                <div class="monopoly-board">
+                    <!-- Top Row (Spaces 1-9) -->
+                    <div class="board-row top-row">
+                        <div class="corner-space go">
+                            <div class="space-number">0</div>
+                            <div class="space-name">Survivor HQ</div>
+                            <div class="space-type">GO</div>
+                            <div class="space-description">Collect 200 Credits</div>
+            </div>
+                        <div class="property-space brown">
+                            <div class="space-number">1</div>
+                            <div class="space-name">Community Garden</div>
+                            <div class="space-price">$60</div>
+                            <div class="space-rent">Rent: $21</div>
+                        </div>
+                        <div class="chance-space">
+                            <div class="space-number">2</div>
+                            <div class="space-name">Survivor Encounter</div>
+                            <div class="space-type">CHANCE</div>
+                        </div>
+                        <div class="property-space brown">
+                            <div class="space-number">3</div>
+                            <div class="space-name">Rainwater Tank</div>
+                            <div class="space-price">$60</div>
+                            <div class="space-rent">Rent: $21</div>
+                        </div>
+                        <div class="tax-space">
+                            <div class="space-number">4</div>
+                            <div class="space-name">Resource Levy</div>
+                            <div class="space-type">TAX</div>
+                            <div class="space-price">$200</div>
+                        </div>
+                        <div class="railroad-space">
+                            <div class="space-number">5</div>
+                            <div class="space-name">Skytram Line</div>
+                            <div class="space-price">$200</div>
+                            <div class="space-rent">Rent: $70</div>
+                        </div>
+                        <div class="property-space light-blue">
+                            <div class="space-number">6</div>
+                            <div class="space-name">Seed Bank</div>
+                            <div class="space-price">$100</div>
+                            <div class="space-rent">Rent: $35</div>
+                        </div>
+                        <div class="chance-space">
+                            <div class="space-number">7</div>
+                            <div class="space-name">Survivor Encounter</div>
+                            <div class="space-type">CHANCE</div>
+                        </div>
+                        <div class="property-space light-blue">
+                            <div class="space-number">8</div>
+                            <div class="space-name">Hydroponic Farm</div>
+                            <div class="space-price">$120</div>
+                            <div class="space-rent">Rent: $42</div>
+                        </div>
+                        <div class="property-space light-blue">
+                            <div class="space-number">9</div>
+                            <div class="space-name">Aquaponic Greenhouse</div>
+                            <div class="space-price">$140</div>
+                            <div class="space-rent">Rent: $49</div>
+                        </div>
+                        <div class="corner-space jail">
+                            <div class="space-number">10</div>
+                            <div class="space-name">Quarantine</div>
+                            <div class="space-type">JAIL</div>
+                        </div>
+                    </div>
+
+                    <!-- Middle Section -->
+                    <div class="board-middle">
+                        <!-- Left Column (Spaces 30-39, bottom to top) -->
+                        <div class="board-column left-column">
+                            <div class="property-space dark-blue">
+                                <div class="space-number">39</div>
+                                <div class="space-name">Global Communication Hub</div>
+                                <div class="space-price">$450</div>
+                                <div class="space-rent">Rent: $158</div>
+                            </div>
+                            <div class="property-space dark-blue">
+                                <div class="space-number">38</div>
+                                <div class="space-name">Central Control Tower</div>
+                                <div class="space-price">$420</div>
+                                <div class="space-rent">Rent: $147</div>
+                            </div>
+                            <div class="tax-space">
+                                <div class="space-number">37</div>
+                                <div class="space-name">Maintenance Dues</div>
+                                <div class="space-type">TAX</div>
+                                <div class="space-price">$100</div>
+                            </div>
+                            <div class="property-space green">
+                                <div class="space-number">36</div>
+                                <div class="space-name">Central Storage Facility</div>
+                                <div class="space-price">$400</div>
+                                <div class="space-rent">Rent: $140</div>
+                            </div>
+                            <div class="railroad-space">
+                                <div class="space-number">35</div>
+                                <div class="space-name">Solar Road</div>
+                                <div class="space-price">$200</div>
+                                <div class="space-rent">Rent: $70</div>
+                            </div>
+                            <div class="property-space green">
+                                <div class="space-number">34</div>
+                                <div class="space-name">Eco-Dome Complex</div>
+                                <div class="space-price">$380</div>
+                                <div class="space-rent">Rent: $133</div>
+                            </div>
+                            <div class="chance-space">
+                                <div class="space-number">33</div>
+                                <div class="space-name">Survivor Encounter</div>
+                                <div class="space-type">CHANCE</div>
+                            </div>
+                            <div class="property-space green">
+                                <div class="space-number">32</div>
+                                <div class="space-name">Modular Housing Block</div>
+                                <div class="space-price">$360</div>
+                                <div class="space-rent">Rent: $126</div>
+                            </div>
+                            <div class="property-space yellow">
+                                <div class="space-number">31</div>
+                                <div class="space-name">Bioinformatics Data Center</div>
+                                <div class="space-price">$340</div>
+                                <div class="space-rent">Rent: $119</div>
+                            </div>
+                        </div>
+
+                        <!-- Center Area -->
+                        <div class="board-center">
+                            <div class="center-logo">
+                                <h3>🏗️ SURVIVAL MONOPOLY</h3>
+                                <p>Post-Apocalyptic Edition</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column (Spaces 10-19) -->
+                        <div class="board-column right-column">
+                            <div class="property-space pink">
+                                <div class="space-number">11</div>
+                                <div class="space-name">Field Clinic</div>
+                                <div class="space-price">$160</div>
+                                <div class="space-rent">Rent: $56</div>
+                            </div>
+                            <div class="utility-space">
+                                <div class="space-number">12</div>
+                                <div class="space-name">Greywater Recycling</div>
+                                <div class="space-price">$180</div>
+                                <div class="space-rent">Variable</div>
+                            </div>
+                            <div class="community-space">
+                                <div class="space-number">13</div>
+                                <div class="space-name">Scarcity Alert</div>
+                                <div class="space-type">COMMUNITY</div>
+                            </div>
+                            <div class="property-space pink">
+                                <div class="space-number">14</div>
+                                <div class="space-name">Vaccine Lab</div>
+                                <div class="space-price">$200</div>
+                                <div class="space-rent">Rent: $70</div>
+                            </div>
+                            <div class="railroad-space">
+                                <div class="space-number">15</div>
+                                <div class="space-name">Subterranean Tunnel</div>
+                                <div class="space-price">$200</div>
+                                <div class="space-rent">Rent: $70</div>
+                            </div>
+                            <div class="property-space pink">
+                                <div class="space-number">16</div>
+                                <div class="space-name">Bioreactor Unit</div>
+                                <div class="space-price">$220</div>
+                                <div class="space-rent">Rent: $77</div>
+                            </div>
+                            <div class="chance-space">
+                                <div class="space-number">17</div>
+                                <div class="space-name">Survivor Encounter</div>
+                                <div class="space-type">CHANCE</div>
+                            </div>
+                            <div class="property-space orange">
+                                <div class="space-number">18</div>
+                                <div class="space-name">Greywater Recycling</div>
+                                <div class="space-price">$180</div>
+                                <div class="space-rent">Rent: $63</div>
+                            </div>
+                            <div class="property-space orange">
+                                <div class="space-number">19</div>
+                                <div class="space-name">Water Purification Plant</div>
+                                <div class="space-price">$200</div>
+                                <div class="space-rent">Rent: $70</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row (Spaces 20-29, right to left) -->
+                    <div class="board-row bottom-row">
+                        <div class="corner-space go-to-jail">
+                            <div class="space-number">30</div>
+                            <div class="space-name">System Failure</div>
+                            <div class="space-type">GO TO JAIL</div>
+                        </div>
+                        <div class="property-space yellow">
+                            <div class="space-number">29</div>
+                            <div class="space-name">CRISPR Research Hub</div>
+                            <div class="space-price">$320</div>
+                            <div class="space-rent">Rent: $112</div>
+                        </div>
+                        <div class="property-space yellow">
+                            <div class="space-number">28</div>
+                            <div class="space-name">Microbial Fuel Cell Lab</div>
+                            <div class="space-price">$300</div>
+                            <div class="space-rent">Rent: $105</div>
+                        </div>
+                        <div class="community-space">
+                            <div class="space-number">27</div>
+                            <div class="space-name">Scarcity Alert</div>
+                            <div class="space-type">COMMUNITY</div>
+                        </div>
+                        <div class="property-space red">
+                            <div class="space-number">26</div>
+                            <div class="space-name">Biogas Plant</div>
+                            <div class="space-price">$280</div>
+                            <div class="space-rent">Rent: $98</div>
+                        </div>
+                        <div class="railroad-space">
+                            <div class="space-number">25</div>
+                            <div class="space-name">Drone Landing Pad</div>
+                            <div class="space-price">$200</div>
+                            <div class="space-rent">Rent: $70</div>
+                        </div>
+                        <div class="property-space red">
+                            <div class="space-number">24</div>
+                            <div class="space-name">Wind Turbine Field</div>
+                            <div class="space-price">$260</div>
+                            <div class="space-rent">Rent: $91</div>
+                        </div>
+                        <div class="chance-space">
+                            <div class="space-number">23</div>
+                            <div class="space-name">Survivor Encounter</div>
+                            <div class="space-type">CHANCE</div>
+                        </div>
+                        <div class="property-space red">
+                            <div class="space-number">22</div>
+                            <div class="space-name">Solar Microgrid</div>
+                            <div class="space-price">$240</div>
+                            <div class="space-rent">Rent: $84</div>
+                        </div>
+                        <div class="property-space orange">
+                            <div class="space-number">21</div>
+                            <div class="space-name">Bio-compost Facility</div>
+                            <div class="space-price">$220</div>
+                            <div class="space-rent">Rent: $77</div>
+                        </div>
+                        <div class="corner-space parking">
+                            <div class="space-number">20</div>
+                            <div class="space-name">Supply Depot</div>
+                            <div class="space-type">FREE PARKING</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="properties">
+            <h2>🏘️ Property List & Details</h2>
+            
+            <h3>Brown Properties (Entry Level)</h3>
+            <div class="property-grid">
+                <div class="property-card brown">
+                    <div class="property-name">Community Garden</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $60</span>
+                        <span><strong>Rent:</strong> $21</span>
+                    </div>
+                    <div class="property-description">
+                        A shared agricultural space where survivors grow essential crops and herbs for the community.
+                    </div>
+                </div>
+                
+                <div class="property-card brown">
+                    <div class="property-name">Rainwater Tank</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $60</span>
+                        <span><strong>Rent:</strong> $21</span>
+                    </div>
+                    <div class="property-description">
+                        A vital water collection and storage system that provides clean water for the settlement.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Light Blue Properties (Basic Infrastructure)</h3>
+            <div class="property-grid">
+                <div class="property-card light-blue">
+                    <div class="property-name">Seed Bank</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $100</span>
+                        <span><strong>Rent:</strong> $35</span>
+                    </div>
+                    <div class="property-description">
+                        A secure facility storing genetically diverse seeds for future agricultural needs.
+                    </div>
+                </div>
+                
+                <div class="property-card light-blue">
+                    <div class="property-name">Hydroponic Farm</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $120</span>
+                        <span><strong>Rent:</strong> $42</span>
+                    </div>
+                    <div class="property-description">
+                        An advanced indoor farming system that grows crops without soil using nutrient-rich water.
+                    </div>
+            </div>
+
+                <div class="property-card light-blue">
+                    <div class="property-name">Aquaponic Greenhouse</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $140</span>
+                        <span><strong>Rent:</strong> $49</span>
+                    </div>
+                    <div class="property-description">
+                        A sustainable system combining fish farming with plant cultivation in a controlled environment.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Pink Properties (Medical & Health)</h3>
+            <div class="property-grid">
+                <div class="property-card pink">
+                    <div class="property-name">Field Clinic</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $160</span>
+                        <span><strong>Rent:</strong> $56</span>
+                    </div>
+                    <div class="property-description">
+                        A mobile medical facility providing emergency healthcare and basic treatment to survivors.
+                    </div>
+            </div>
+
+                <div class="property-card pink">
+                    <div class="property-name">Vaccine Lab</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $200</span>
+                        <span><strong>Rent:</strong> $70</span>
+                    </div>
+                    <div class="property-description">
+                        A research facility developing vaccines and treatments for post-apocalyptic diseases.
+                    </div>
+            </div>
+
+                <div class="property-card pink">
+                    <div class="property-name">Bioreactor Unit</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $220</span>
+                        <span><strong>Rent:</strong> $77</span>
+                    </div>
+                    <div class="property-description">
+                        An advanced biological processing facility that converts organic waste into useful resources.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Orange Properties (Water & Waste Management)</h3>
+            <div class="property-grid">
+                <div class="property-card orange">
+                    <div class="property-name">Greywater Recycling</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $180</span>
+                        <span><strong>Rent:</strong> $63</span>
+                    </div>
+                    <div class="property-description">
+                        A system that treats and reuses wastewater from sinks, showers, and washing machines.
+                    </div>
+            </div>
+
+                <div class="property-card orange">
+                    <div class="property-name">Water Purification Plant</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $200</span>
+                        <span><strong>Rent:</strong> $70</span>
+                    </div>
+                    <div class="property-description">
+                        A large-scale facility that purifies contaminated water to make it safe for consumption.
+                    </div>
+            </div>
+
+                <div class="property-card orange">
+                    <div class="property-name">Bio-compost Facility</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $220</span>
+                        <span><strong>Rent:</strong> $77</span>
+                    </div>
+                    <div class="property-description">
+                        An industrial composting system that converts organic waste into nutrient-rich soil.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Red Properties (Energy & Power)</h3>
+            <div class="property-grid">
+                <div class="property-card red">
+                    <div class="property-name">Solar Microgrid</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $240</span>
+                        <span><strong>Rent:</strong> $84</span>
+                    </div>
+                    <div class="property-description">
+                        A localized solar power system providing clean electricity to the surrounding area.
+                    </div>
+            </div>
+
+                <div class="property-card red">
+                    <div class="property-name">Wind Turbine Field</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $260</span>
+                        <span><strong>Rent:</strong> $91</span>
+            </div>
+                    <div class="property-description">
+                        A collection of wind turbines harnessing wind energy to generate sustainable power.
+                    </div>
+                </div>
+                
+                <div class="property-card red">
+                    <div class="property-name">Biogas Plant</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $280</span>
+                        <span><strong>Rent:</strong> $98</span>
+                    </div>
+                    <div class="property-description">
+                        A facility that converts organic waste into biogas for heating and electricity generation.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Yellow Properties (Research & Technology)</h3>
+            <div class="property-grid">
+                <div class="property-card yellow">
+                    <div class="property-name">Microbial Fuel Cell Lab</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $300</span>
+                        <span><strong>Rent:</strong> $105</span>
+                    </div>
+                    <div class="property-description">
+                        A research facility developing microbial fuel cells for clean energy production.
+                    </div>
+                </div>
+                
+                <div class="property-card yellow">
+                    <div class="property-name">CRISPR Research Hub</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $320</span>
+                        <span><strong>Rent:</strong> $112</span>
+                    </div>
+                    <div class="property-description">
+                        An advanced genetic engineering facility using CRISPR technology for medical and agricultural applications.
+                    </div>
+                </div>
+                
+                <div class="property-card yellow">
+                    <div class="property-name">Bioinformatics Data Center</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $340</span>
+                        <span><strong>Rent:</strong> $119</span>
+                    </div>
+                    <div class="property-description">
+                        A high-tech facility processing biological data and running complex computational models.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Green Properties (Housing & Infrastructure)</h3>
+            <div class="property-grid">
+                <div class="property-card green">
+                    <div class="property-name">Modular Housing Block</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $360</span>
+                        <span><strong>Rent:</strong> $126</span>
+                    </div>
+                    <div class="property-description">
+                        Prefabricated housing units designed for quick assembly and efficient space utilization.
+                    </div>
+                </div>
+                
+                <div class="property-card green">
+                    <div class="property-name">Eco-Dome Complex</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $380</span>
+                        <span><strong>Rent:</strong> $133</span>
+                    </div>
+                    <div class="property-description">
+                        A self-sustaining residential complex with integrated renewable energy and waste management.
+                    </div>
+                </div>
+                
+                <div class="property-card green">
+                    <div class="property-name">Central Storage Facility</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $400</span>
+                        <span><strong>Rent:</strong> $140</span>
+                    </div>
+                    <div class="property-description">
+                        A massive warehouse storing essential supplies, equipment, and resources for the settlement.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Dark Blue Properties (Command & Control)</h3>
+            <div class="property-grid">
+                <div class="property-card dark-blue">
+                    <div class="property-name">Central Control Tower</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $420</span>
+                        <span><strong>Rent:</strong> $147</span>
+                    </div>
+                    <div class="property-description">
+                        The nerve center of the settlement, coordinating all operations and monitoring security.
+                    </div>
+                </div>
+                
+                <div class="property-card dark-blue">
+                    <div class="property-name">Global Communication Hub</div>
+                    <div class="property-details">
+                        <span><strong>Price:</strong> $450</span>
+                        <span><strong>Rent:</strong> $158</span>
+                    </div>
+                    <div class="property-description">
+                        A satellite communication facility enabling contact with other survivor settlements worldwide.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="special-spaces">
+            <h2>🎯 Special Spaces</h2>
+            <div class="special-spaces">
+                <div class="special-space">
+                    <h4>🚁 Transit Routes (Railroads)</h4>
+                    <p><strong>Price:</strong> $200 each</p>
+                    <p><strong>Rent:</strong> $70 each</p>
+                    <p>Skytram Line, Subterranean Tunnel, Drone Landing Pad, Solar Road</p>
+                </div>
+                
+                <div class="special-space">
+                    <h4>⚡ Utilities</h4>
+                    <p><strong>Price:</strong> $180</p>
+                    <p><strong>Rent:</strong> Variable (Random $50-150)</p>
+                    <p>Greywater Recycling System</p>
+                </div>
+                
+                <div class="special-space">
+                    <h4>🎲 Chance Cards</h4>
+                    <p>Survivor Encounter spaces</p>
+                    <p>Random events that can help or hinder your progress</p>
+                </div>
+                
+                <div class="special-space">
+                    <h4>📦 Community Chest</h4>
+                    <p>Scarcity Alert spaces</p>
+                    <p>Community-based events affecting all players</p>
+                </div>
+                
+                <div class="special-space">
+                    <h4>💰 Tax Spaces</h4>
+                    <p><strong>Resource Levy:</strong> $200</p>
+                    <p><strong>Maintenance Dues:</strong> $100</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="color-system">
+            <h2>🎨 Color System & Stripe Positioning</h2>
+            <p>The game uses a sophisticated color-coding system with strategically positioned stripes:</p>
+            
+            <div class="color-legend">
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #8B4513;"></div>
+                    <span><strong>Brown:</strong> Entry-level properties</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #87CEEB;"></div>
+                    <span><strong>Light Blue:</strong> Basic infrastructure</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #FFC0CB;"></div>
+                    <span><strong>Pink:</strong> Medical & health facilities</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #FFA500;"></div>
+                    <span><strong>Orange:</strong> Water & waste management</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #FF0000;"></div>
+                    <span><strong>Red:</strong> Energy & power systems</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #FFFF00;"></div>
+                    <span><strong>Yellow:</strong> Research & technology</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #008000;"></div>
+                    <span><strong>Green:</strong> Housing & infrastructure</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #000080;"></div>
+                    <span><strong>Dark Blue:</strong> Command & control</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #6B46C1;"></div>
+                    <span><strong>Purple:</strong> Transit routes</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #06b6d4;"></div>
+                    <span><strong>Cyan:</strong> Utilities</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #FF1493;"></div>
+                    <span><strong>Magenta:</strong> Chance cards</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #20B2AA;"></div>
+                    <span><strong>Teal:</strong> Community chest</span>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #808080;"></div>
+                    <span><strong>Grey:</strong> Tax spaces</span>
+                </div>
+            </div>
+
+            <h3>Stripe Positioning</h3>
+            <ul>
+                <li><strong>Spaces 1-9 (Top Row):</strong> Horizontal stripes in the top corner</li>
+                <li><strong>Spaces 11-19 (Right Column):</strong> Vertical stripes on the right side</li>
+                <li><strong>Spaces 21-29 (Bottom Row):</strong> Horizontal stripes in the bottom corner</li>
+            </ul>
+        </div>
+
+        <div class="section" id="game-menus">
+            <h2>🎮 Game Menus & Controls</h2>
+            
+            <h3>🍔 Hamburger Menu (Top Right)</h3>
+            <ul class="menu-list">
+                <li>
+                    <strong>🎮 Game Setup:</strong> Configure players, tokens, and game settings. Add/remove players, edit names, and select token shapes and colors.
+                </li>
+                <li>
+                    <strong>📋 Game Log:</strong> View detailed history of all game actions, moves, and events. Includes timestamps and player actions.
+                </li>
+                <li>
+                    <strong>🏦 Bank Control:</strong> Manage player finances, transfer money between players, and handle banking operations.
+                </li>
+                <li>
+                    <strong>📊 Export Game Stats:</strong> Generate and download game statistics in CSV format for analysis.
+                </li>
+            </ul>
+
+            <h3>🎯 Current Turn Menu (Left Panel)</h3>
+            <ul class="menu-list">
+                <li>
+                    <strong>Player Information:</strong> Shows current player's name, position, and money
+                </li>
+                <li>
+                    <strong>Movement Controls:</strong> Manual move, dice roll, or teleport options
+                </li>
+                <li>
+                    <strong>Action Buttons:</strong> End turn, undo move, and game menu access
+                </li>
+            </ul>
+
+            <h3>💾 Game Menu Dropdown</h3>
+            <ul class="menu-list">
+                <li>
+                    <strong>📤 Export Game:</strong> Save current game state to a JSON file for backup or sharing
+                </li>
+                <li>
+                    <strong>📥 Restore Game:</strong> Load a previously saved game state from a JSON file
+                </li>
+            </ul>
+
+            <h3>🎲 Movement Options</h3>
+            <ul class="menu-list">
+                <li>
+                    <strong>Manual Move:</strong> Click on any space to move directly there
+                </li>
+                <li>
+                    <strong>Dice Roll:</strong> Roll virtual dice for random movement (1-6 spaces)
+                </li>
+                <li>
+                    <strong>Teleport:</strong> Instantly move to any space on the board
+                </li>
+            </ul>
+        </div>
+
+        <div class="section" id="quarantine-system">
+            <h2>🚨 Quarantine & System Failure System</h2>
+            
+            <div class="quarantine-info">
+                <h3>🏥 Quarantine (Jail) System</h3>
+                <p>When a player lands on the <strong>Quarantine</strong> space (index 10), they are placed in isolation for safety reasons.</p>
+                <ul>
+                    <li><strong>Immediate Options:</strong> Pay $50 to get out immediately OR lose one turn</li>
+                    <li><strong>Visual Effects:</strong> Special jail transition animation with red border</li>
+                    <li><strong>Status Tracking:</strong> Player's "inJail" status is tracked in the system</li>
+                    <li><strong>Manual Resolution:</strong> Player must manually choose their action through notification buttons</li>
+                </ul>
+            </div>
+
+            <div class="quarantine-info" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);">
+                <h3>⚡ System Failure (Go to Jail)</h3>
+                <p>When a player lands on the <strong>System Failure</strong> space (index 30), they encounter a critical system malfunction.</p>
+                <ul>
+                    <li><strong>Dramatic Animation:</strong> 2-second jail transition animation with rotation and color effects</li>
+                    <li><strong>Automatic Transport:</strong> Player is automatically moved to Quarantine (space 10)</li>
+                    <li><strong>Special Notification:</strong> "System Failure!" error notification with red styling</li>
+                    <li><strong>Quarantine Rules Apply:</strong> Same $50 payment or lose turn options as regular Quarantine</li>
+                    <li><strong>Visual Feedback:</strong> Special jail notification styling with dark red background</li>
+            </ul>
+            </div>
+
+            <h3>🔄 Quarantine Mechanics</h3>
+            <ul class="menu-list">
+                <li>
+                    <strong>Payment Option:</strong> Pay $50 to immediately exit quarantine and continue playing
+                </li>
+                <li>
+                    <strong>Wait Option:</strong> Lose one turn and remain in quarantine until next turn
+                </li>
+                <li>
+                    <strong>Insufficient Funds:</strong> If player can't afford $50, they must wait one turn
+                </li>
+                <li>
+                    <strong>Status Updates:</strong> Game log records all quarantine actions and releases
+                </li>
+            </ul>
+        </div>
+
+        <div class="section" id="game-mechanics">
+            <h2>⚙️ Game Mechanics & Features</h2>
+            
+            <h3>🎯 Property Ownership</h3>
+            <ul class="menu-list">
+                <li><strong>Purchase System:</strong> Players can buy unowned properties when landing on them</li>
+                <li><strong>Rent Collection:</strong> Owners collect rent when other players land on their properties</li>
+                <li><strong>Visual Indicators:</strong> Property owners are displayed on each space</li>
+                <li><strong>Color Grouping:</strong> Properties are grouped by color for strategic gameplay</li>
+            </ul>
+
+            <h3>🎲 Chance & Community Chest</h3>
+            <ul class="menu-list">
+                <li><strong>Survivor Encounters:</strong> Random events that can provide resources or challenges</li>
+                <li><strong>Scarcity Alerts:</strong> Community-wide events affecting all players</li>
+                <li><strong>Dynamic Events:</strong> Events are contextually relevant to the survival theme</li>
+            </ul>
+
+            <h3>🚁 Transit Routes</h3>
+            <ul class="menu-list">
+                <li><strong>Fixed Rent:</strong> All transit routes charge $70 rent regardless of ownership count</li>
+                <li><strong>Strategic Value:</strong> High-traffic spaces that generate consistent income</li>
+                <li><strong>Purple Color Coding:</strong> Easily identifiable with purple stripes</li>
+            </ul>
+
+            <h3>⚡ Utilities</h3>
+            <ul class="menu-list">
+                <li><strong>Variable Rent:</strong> Rent is calculated randomly between $50-150</li>
+                <li><strong>Single Utility:</strong> Only one utility space (Greywater Recycling)</li>
+                <li><strong>Cyan Color Coding:</strong> Distinguished with cyan stripes</li>
+            </ul>
+
+            <h3>💰 Financial System</h3>
+            <ul class="menu-list">
+                <li><strong>Starting Money:</strong> Players begin with $1500</li>
+                <li><strong>Bank Controls:</strong> Admin can transfer money between players</li>
+                <li><strong>Transaction Logging:</strong> All financial transactions are recorded</li>
+                <li><strong>Real-time Updates:</strong> Player money is updated immediately after transactions</li>
+                </ul>
+                
+            <h3>🎨 Visual Features</h3>
+            <ul class="menu-list">
+                <li><strong>Token System:</strong> 10 unique token shapes with customizable colors</li>
+                <li><strong>Animation Effects:</strong> Smooth transitions and hover effects</li>
+                <li><strong>Responsive Design:</strong> Adapts to different screen sizes</li>
+                <li><strong>Dark Theme:</strong> Post-apocalyptic aesthetic with gold accents</li>
+                </ul>
+                
+            <h3>💾 Save & Load System</h3>
+            <ul class="menu-list">
+                <li><strong>Game Export:</strong> Save complete game state including all player data</li>
+                <li><strong>Game Import:</strong> Restore games from previously saved files</li>
+                <li><strong>Data Integrity:</strong> Comprehensive validation of saved game data</li>
+                <li><strong>Backup System:</strong> Automatic game state preservation</li>
+                </ul>
+            </div>
+
+        <div class="section">
+            <h2>🎯 How to Play</h2>
+            <ol style="margin-left: 20px; line-height: 1.8;">
+                <li><strong>Setup:</strong> Use the hamburger menu to add 2-8 players and configure their tokens</li>
+                <li><strong>Start Game:</strong> Click "Start Game" to begin the first turn</li>
+                <li><strong>Movement:</strong> Choose manual move, dice roll, or teleport to move your token</li>
+                <li><strong>Property Actions:</strong> Buy unowned properties or pay rent to owners</li>
+                <li><strong>Special Spaces:</strong> Handle chance cards, community chest, taxes, and utilities</li>
+                <li><strong>Quarantine:</strong> If sent to quarantine, choose to pay $50 or lose a turn</li>
+                <li><strong>End Turn:</strong> Complete your actions and pass to the next player</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>🏆 Strategy Tips</h2>
+            <ul class="menu-list">
+                <li><strong>Color Groups:</strong> Try to acquire complete color groups for maximum rent potential</li>
+                <li><strong>Transit Routes:</strong> Transit routes provide steady income and are valuable investments</li>
+                <li><strong>Utilities:</strong> While variable, utilities can provide good returns in the right circumstances</li>
+                <li><strong>Quarantine Management:</strong> Keep $50 in reserve for emergency quarantine exits</li>
+                <li><strong>Property Priority:</strong> Focus on higher-rent properties in the later game stages</li>
+                <li><strong>Bank Management:</strong> Monitor your finances carefully to avoid bankruptcy</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
