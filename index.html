@@ -43,6 +43,72 @@
             align-items: start;
         }
 
+        /* Timer Styles for Menu */
+        .timer-display {
+            text-align: center;
+            font-weight: bold;
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            background: var(--primary-bg);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timer-btn {
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .timer-btn:hover {
+            background: #ffed4e;
+            transform: translateY(-1px);
+        }
+
+        .timer-btn:active {
+            transform: translateY(0);
+        }
+
+        .timer-btn.stop {
+            background: var(--danger);
+            color: white;
+        }
+
+        .timer-btn.stop:hover {
+            background: #dc2626;
+        }
+
+        .timer-btn.reset {
+            background: var(--text-secondary);
+            color: white;
+        }
+
+        .timer-btn.reset:hover {
+            background: #718096;
+        }
+
+        .timer-input {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .timer-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
         .game-board {
             grid-column: 1;
             grid-row: 1;
@@ -1816,6 +1882,7 @@
     <!-- Notification Container -->
     <div class="notification-container" id="notificationContainer"></div>
 
+
     <!-- 3-Dot Menu -->
     <div class="hamburger-menu">
         <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleHamburgerMenu()">
@@ -1837,6 +1904,10 @@
                 <div class="menu-icon">🏦</div>
                 <div class="menu-text">Bank Control</div>
             </div>
+            <div class="hamburger-menu-item" onclick="showMenuSection('timer')">
+                <div class="menu-icon">⏱️</div>
+                <div class="menu-text">Game Timer</div>
+            </div>
             <div class="hamburger-menu-item" onclick="exportGameStats()">
                 <div class="menu-icon">📊</div>
                 <div class="menu-text">Export Game Stats</div>
@@ -1849,7 +1920,7 @@
         <div class="game-board">
             <div class="board-center">
                 <div class="logo-container">
-                    <img src="gridgrab.png?v=1" alt="GRID GRAB Logo" class="logo-image">
+                    <img src="C:\Users\nirbh\Desktop\gridgrab.png?v=1" alt="GRID GRAB Logo" class="logo-image">
                 </div>
                 <!-- Community Chest Card -->
                 <div class="card-design community-chest-card">
@@ -1951,6 +2022,36 @@
                 </div>
             </div>
 
+            <div class="menu-section" id="menu-timer" style="display: none;">
+                <!-- Game Timer -->
+                <div class="panel-section">
+                    <h3>Game Timer</h3>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Set Time (MM:SS)</label>
+                            <input type="text" class="timer-input" id="timerInput" placeholder="MM:SS" value="05:00">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>&nbsp;</label>
+                            <button class="timer-btn" id="setTimeBtn" style="height: 44px;">Set Time</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1; text-align: center;">
+                            <label>Time Remaining</label>
+                            <div class="timer-display" id="timerDisplay" style="font-size: 20px; padding: 12px; background: var(--primary-bg); border-radius: 8px; border: 1px solid var(--border-color); margin-top: 8px;">05:00</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <button class="timer-btn stop" id="stopBtn" style="height: 44px;">Stop</button>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <button class="timer-btn reset" id="resetBtn" style="height: 44px;">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Current Turn -->
             <div class="panel-section">
@@ -2099,6 +2200,103 @@
             spaces: [],
             gameStarted: false
         };
+
+        // Timer State
+        let timerState = {
+            timeLeft: 300, // 5 minutes in seconds
+            isRunning: false,
+            intervalId: null
+        };
+
+        // Timer Functions
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateTimerDisplay() {
+            const display = document.getElementById('timerDisplay');
+            display.textContent = formatTime(timerState.timeLeft);
+        }
+
+        function startTimer() {
+            if (timerState.isRunning) return;
+            
+            timerState.isRunning = true;
+            timerState.intervalId = setInterval(() => {
+                if (timerState.timeLeft > 0) {
+                    timerState.timeLeft--;
+                    updateTimerDisplay();
+                } else {
+                    stopTimer();
+                    // Optional: Add notification when timer reaches zero
+                    showNotification('Timer Complete', 'The timer has reached zero!', 'info');
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (!timerState.isRunning) return;
+            
+            timerState.isRunning = false;
+            if (timerState.intervalId) {
+                clearInterval(timerState.intervalId);
+                timerState.intervalId = null;
+            }
+        }
+
+        function resetTimer() {
+            stopTimer();
+            timerState.timeLeft = 300; // Reset to 5 minutes
+            updateTimerDisplay();
+            document.getElementById('timerInput').value = '05:00';
+        }
+
+        function setTimer() {
+            const input = document.getElementById('timerInput').value;
+            const timePattern = /^(\d{1,2}):(\d{2})$/;
+            const match = input.match(timePattern);
+            
+            if (match) {
+                const minutes = parseInt(match[1]);
+                const seconds = parseInt(match[2]);
+                
+                if (minutes >= 0 && minutes <= 59 && seconds >= 0 && seconds <= 59) {
+                    timerState.timeLeft = minutes * 60 + seconds;
+                    updateTimerDisplay();
+                    showNotification('Timer Set', `Timer set to ${formatTime(timerState.timeLeft)}`, 'success');
+                } else {
+                    showNotification('Invalid Time', 'Please enter a valid time (MM:SS format, 00:00 to 59:59)', 'error');
+                }
+            } else {
+                showNotification('Invalid Format', 'Please enter time in MM:SS format (e.g., 05:30)', 'error');
+            }
+        }
+
+        // Initialize Timer
+        function initTimer() {
+            updateTimerDisplay();
+            
+            // Event listeners for timer buttons
+            document.getElementById('setTimeBtn').addEventListener('click', setTimer);
+            document.getElementById('stopBtn').addEventListener('click', stopTimer);
+            document.getElementById('resetBtn').addEventListener('click', resetTimer);
+            
+            // Allow Enter key to set time
+            document.getElementById('timerInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    setTimer();
+                }
+            });
+            
+            // Auto-start timer when set
+            document.getElementById('setTimeBtn').addEventListener('click', function() {
+                if (!timerState.isRunning && timerState.timeLeft > 0) {
+                    startTimer();
+                }
+            });
+        }
 
         // Board Configuration
         const BOARD_SPACES = [
@@ -2454,13 +2652,24 @@
         }
         
         function showMenuSection(section) {
+            const targetSection = document.getElementById(`menu-${section}`);
+            
+            // Check if the target section is already visible
+            if (targetSection.style.display === 'block') {
+                // If it's already visible, hide it and close hamburger menu
+                targetSection.style.display = 'none';
+                toggleHamburgerMenu();
+                return;
+            }
+            
             // Hide all menu sections
             document.getElementById('menu-setup').style.display = 'none';
             document.getElementById('menu-log').style.display = 'none';
             document.getElementById('menu-bank').style.display = 'none';
+            document.getElementById('menu-timer').style.display = 'none';
             
             // Show selected section
-            document.getElementById(`menu-${section}`).style.display = 'block';
+            targetSection.style.display = 'block';
             
             // Close hamburger menu
             toggleHamburgerMenu();
@@ -4185,7 +4394,10 @@
         }
 
         // Initialize the game when page loads
-        document.addEventListener('DOMContentLoaded', initGame);
+        document.addEventListener('DOMContentLoaded', function() {
+            initGame();
+            initTimer();
+        });
     </script>
 </body>
 </html>
