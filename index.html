@@ -1920,7 +1920,7 @@
         <div class="game-board">
             <div class="board-center">
                 <div class="logo-container">
-                    <img src="gridgrab.png?v=1" alt="GRID GRAB Logo" class="logo-image">
+                    <img src="C:\Users\nirbh\Desktop\gridgrab.png?v=1" alt="GRID GRAB Logo" class="logo-image">
                 </div>
                 <!-- Community Chest Card -->
                 <div class="card-design community-chest-card">
@@ -4349,43 +4349,136 @@
                     return;
                 }
 
-                // Create simple CSV content instead of complex Excel XML
-                let csvContent = 'Game Information,Value\n';
-                csvContent += 'Game Name,Survival Monopoly\n';
-                csvContent += 'Current Turn,' + ((gameState.currentPlayerIndex || 0) + 1) + '\n';
-                csvContent += 'Current Player,' + ((gameState.players && gameState.players[gameState.currentPlayerIndex]) ? gameState.players[gameState.currentPlayerIndex].name : 'No Player') + '\n';
-                csvContent += 'Game Status,' + (gameState.gameStarted ? 'Active' : 'Not Started') + '\n';
-                csvContent += 'Total Players,' + (gameState.players ? gameState.players.length : 0) + '\n';
-                csvContent += 'Export Date,' + new Date().toLocaleString() + '\n\n';
+                // Helper function to escape CSV values
+                function escapeCSV(value) {
+                    if (value === null || value === undefined) return '';
+                    const stringValue = String(value);
+                    if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
+                        return '"' + stringValue.replace(/"/g, '""') + '"';
+                    }
+                    return stringValue;
+                }
+
+                // Helper function to calculate player statistics
+                function calculatePlayerStats(player) {
+                    const ownedProperties = BOARD_SPACES.filter(space => space.owner === player.id);
+                    const totalPropertyValue = ownedProperties.reduce((sum, prop) => sum + (prop.price || 0), 0);
+                    const totalRentValue = ownedProperties.reduce((sum, prop) => sum + (prop.rent || 0), 0);
+                    const netWorth = player.money + totalPropertyValue;
+                    
+                    return {
+                        ownedProperties: ownedProperties,
+                        totalPropertyValue: totalPropertyValue,
+                        totalRentValue: totalRentValue,
+                        netWorth: netWorth,
+                        propertyCount: ownedProperties.length
+                    };
+                }
+
+                let csvContent = '';
                 
-                // Add player information
-                csvContent += 'Player Information\n';
-                csvContent += 'Name,Money,Position,Status,Properties Owned\n';
-                if (gameState.players) {
-                    gameState.players.forEach(player => {
-                        csvContent += player.name + ',' + player.money + ',' + player.position + ',' + (player.inJail ? 'In Quarantine' : 'Active') + ',' + (player.properties ? player.properties.length : 0) + '\n';
+                // Game Overview Section
+                csvContent += '=== GAME OVERVIEW ===\n';
+                csvContent += 'Game Name,Survival Monopoly\n';
+                csvContent += 'Export Date,' + new Date().toLocaleString() + '\n';
+                csvContent += 'Game Status,' + (gameState.gameStarted ? 'Active' : 'Not Started') + '\n';
+                csvContent += 'Current Turn,' + ((gameState.currentPlayerIndex || 0) + 1) + '\n';
+                csvContent += 'Current Player,' + escapeCSV((gameState.players && gameState.players[gameState.currentPlayerIndex]) ? gameState.players[gameState.currentPlayerIndex].name : 'No Player') + '\n';
+                csvContent += 'Total Players,' + (gameState.players ? gameState.players.length : 0) + '\n\n';
+                
+                // Individual Player Statistics
+                if (gameState.players && gameState.players.length > 0) {
+                    csvContent += '=== INDIVIDUAL PLAYER STATISTICS ===\n';
+                    gameState.players.forEach((player, index) => {
+                        const stats = calculatePlayerStats(player);
+                        const isCurrentPlayer = index === gameState.currentPlayerIndex;
+                        
+                        csvContent += `--- PLAYER ${index + 1}: ${escapeCSV(player.name)} ---\n`;
+                        csvContent += 'Player ID,' + player.id + '\n';
+                        csvContent += 'Player Name,' + escapeCSV(player.name) + '\n';
+                        csvContent += 'Token Color,' + escapeCSV(player.tokenColor || 'N/A') + '\n';
+                        csvContent += 'Token Shape,' + escapeCSV(player.tokenShape || 'N/A') + '\n';
+                        csvContent += 'Current Position,' + player.position + '\n';
+                        csvContent += 'Current Money,$' + player.money + '\n';
+                        csvContent += 'Status,' + (player.inJail ? 'In Quarantine' : 'Active') + '\n';
+                        csvContent += 'Is Current Player,' + (isCurrentPlayer ? 'Yes' : 'No') + '\n';
+                        csvContent += 'Properties Owned,' + stats.propertyCount + '\n';
+                        csvContent += 'Total Property Value,$' + stats.totalPropertyValue + '\n';
+                        csvContent += 'Total Rent Income,$' + stats.totalRentValue + '\n';
+                        csvContent += 'Net Worth,$' + stats.netWorth + '\n';
+                        
+                        // List owned properties
+                        if (stats.ownedProperties.length > 0) {
+                            csvContent += 'Owned Properties,Property Name,Type,Price,Rent\n';
+                            stats.ownedProperties.forEach(prop => {
+                                csvContent += ',' + escapeCSV(prop.name) + ',' + escapeCSV(prop.type) + ',' + prop.price + ',' + prop.rent + '\n';
+                            });
+                        } else {
+                            csvContent += 'Owned Properties,None\n';
+                        }
+                        csvContent += '\n';
                     });
                 }
                 
-                csvContent += '\nAll Properties\n';
-                csvContent += 'ID,Name,Type,Price,Rent,Owner\n';
+                // Player Comparison Summary
+                if (gameState.players && gameState.players.length > 0) {
+                    csvContent += '=== PLAYER COMPARISON SUMMARY ===\n';
+                    csvContent += 'Player Name,Money,Net Worth,Properties,Status\n';
+                    gameState.players.forEach((player, index) => {
+                        const stats = calculatePlayerStats(player);
+                        const isCurrentPlayer = index === gameState.currentPlayerIndex;
+                        csvContent += escapeCSV(player.name) + ',$' + player.money + ',$' + stats.netWorth + ',' + stats.propertyCount + ',' + (player.inJail ? 'In Quarantine' : 'Active') + (isCurrentPlayer ? ' (Current)' : '') + '\n';
+                    });
+                    csvContent += '\n';
+                }
+                
+                // All Properties Overview
+                csvContent += '=== ALL PROPERTIES OVERVIEW ===\n';
+                csvContent += 'Property ID,Name,Type,Price,Rent,Owner,Owner Name\n';
                 BOARD_SPACES.forEach((space, index) => {
                     const ownerName = space.owner ? (gameState.players ? gameState.players.find(p => p.id === space.owner)?.name || 'Unknown' : 'Unknown') : 'Bank';
-                    csvContent += index + ',' + space.name + ',' + space.type + ',' + space.price + ',' + space.rent + ',' + ownerName + '\n';
+                    csvContent += index + ',' + escapeCSV(space.name) + ',' + escapeCSV(space.type) + ',' + space.price + ',' + space.rent + ',' + (space.owner || 'Bank') + ',' + escapeCSV(ownerName) + '\n';
                 });
+                csvContent += '\n';
+                
+                // Game Statistics Summary
+                if (gameState.players && gameState.players.length > 0) {
+                    csvContent += '=== GAME STATISTICS SUMMARY ===\n';
+                    const totalMoney = gameState.players.reduce((sum, player) => sum + player.money, 0);
+                    const totalProperties = BOARD_SPACES.filter(space => space.owner && space.owner !== 'Bank').length;
+                    const ownedByPlayers = BOARD_SPACES.filter(space => space.owner && gameState.players.some(p => p.id === space.owner));
+                    const totalPropertyValue = ownedByPlayers.reduce((sum, prop) => sum + (prop.price || 0), 0);
+                    
+                    csvContent += 'Total Money in Game,$' + totalMoney + '\n';
+                    csvContent += 'Total Properties Owned,' + totalProperties + '\n';
+                    csvContent += 'Total Property Value Owned,$' + totalPropertyValue + '\n';
+                    csvContent += 'Average Money per Player,$' + Math.round(totalMoney / gameState.players.length) + '\n';
+                    csvContent += 'Average Properties per Player,' + Math.round(totalProperties / gameState.players.length * 10) / 10 + '\n';
+                    
+                    // Find richest and poorest players
+                    const playersWithNetWorth = gameState.players.map(player => ({
+                        ...player,
+                        netWorth: calculatePlayerStats(player).netWorth
+                    }));
+                    const richestPlayer = playersWithNetWorth.reduce((max, player) => player.netWorth > max.netWorth ? player : max);
+                    const poorestPlayer = playersWithNetWorth.reduce((min, player) => player.netWorth < min.netWorth ? player : min);
+                    
+                    csvContent += 'Richest Player,' + escapeCSV(richestPlayer.name) + ' ($' + richestPlayer.netWorth + ')\n';
+                    csvContent += 'Poorest Player,' + escapeCSV(poorestPlayer.name) + ' ($' + poorestPlayer.netWorth + ')\n';
+                }
                 
                 // Create and download the file
-                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'Survival_Monopoly_Game_Stats_' + new Date().toISOString().split('T')[0] + '.csv';
+                a.download = 'Survival_Monopoly_Detailed_Stats_' + new Date().toISOString().split('T')[0] + '.csv';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
                 
-                showNotification('Export Complete', 'Game statistics have been exported to CSV file!', 'success');
+                showNotification('Export Complete', 'Detailed game statistics have been exported to CSV file!', 'success');
             } catch (error) {
                 console.error('Export error:', error);
                 showNotification('Export Error', 'Failed to export game statistics. Please try again.', 'error');
