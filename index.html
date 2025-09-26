@@ -111,7 +111,7 @@
         }
 
         .community-chest-card {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            background: linear-gradient(135deg, #20B2AA, #008B8B);
             color: white;
             top: 5%;
             left: 99%;
@@ -120,7 +120,7 @@
         }
 
         .chance-card {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
+            background: linear-gradient(135deg, #FF1493, #DC143C);
             color: white;
             top: 99%;
             left: 15%;
@@ -181,8 +181,186 @@
             border-left: 10px solid var(--accent-color);
         }
 
+        /* Property Color Groups */
+        .board-space.property.brown {
+            border-left: 10px solid #8B4513;
+        }
+
+        .board-space.property.light-blue {
+            border-left: 10px solid #87CEEB;
+        }
+
+        .board-space.property.pink {
+            border-left: 10px solid #FFC0CB;
+        }
+
+        .board-space.property.orange {
+            border-left: 10px solid #FFA500;
+        }
+
+        .board-space.property.red {
+            border-left: 10px solid #FF0000;
+        }
+
+        .board-space.property.yellow {
+            border-left: 10px solid #FFFF00;
+        }
+
+        .board-space.property.green {
+            border-left: 10px solid #008000;
+        }
+
+        .board-space.property.dark-blue {
+            border-left: 10px solid #000080;
+        }
+
+        /* Stripe positioning for different board sections */
+        /* Top row (spaces 1-9): Horizontal stripes in top corner */
+        .board-space.property.top-row {
+            border-left: none;
+            position: relative;
+        }
+
+        .board-space.property.top-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            z-index: 0;
+        }
+
+        .board-space.property.top-row.brown::before {
+            background-color: #8B4513;
+        }
+
+        .board-space.property.top-row.light-blue::before {
+            background-color: #87CEEB;
+        }
+
+        .board-space.property.top-row.pink::before {
+            background-color: #FFC0CB;
+        }
+
+        .board-space.property.top-row.orange::before {
+            background-color: #FFA500;
+        }
+
+        .board-space.property.top-row.red::before {
+            background-color: #FF0000;
+        }
+
+        .board-space.property.top-row.yellow::before {
+            background-color: #FFFF00;
+        }
+
+        .board-space.property.top-row.green::before {
+            background-color: #008000;
+        }
+
+        .board-space.property.top-row.dark-blue::before {
+            background-color: #000080;
+        }
+
+        /* Right column (spaces 11-19): Vertical stripes on right side */
+        .board-space.property.right-column {
+            border-left: none;
+            position: relative;
+        }
+
+        .board-space.property.right-column::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .board-space.property.right-column.brown::after {
+            background-color: #8B4513;
+        }
+
+        .board-space.property.right-column.light-blue::after {
+            background-color: #87CEEB;
+        }
+
+        .board-space.property.right-column.pink::after {
+            background-color: #FFC0CB;
+        }
+
+        .board-space.property.right-column.orange::after {
+            background-color: #FFA500;
+        }
+
+        .board-space.property.right-column.red::after {
+            background-color: #FF0000;
+        }
+
+        .board-space.property.right-column.yellow::after {
+            background-color: #FFFF00;
+        }
+
+        .board-space.property.right-column.green::after {
+            background-color: #008000;
+        }
+
+        .board-space.property.right-column.dark-blue::after {
+            background-color: #000080;
+        }
+
+        /* Bottom row (spaces 21-29): Horizontal stripes in bottom corner */
+        .board-space.property.bottom-row {
+            border-left: none;
+            position: relative;
+        }
+
+        .board-space.property.bottom-row::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            z-index: 0;
+        }
+
+        .board-space.property.bottom-row.brown::before {
+            background-color: #8B4513;
+        }
+
+        .board-space.property.bottom-row.light-blue::before {
+            background-color: #87CEEB;
+        }
+
+        .board-space.property.bottom-row.pink::before {
+            background-color: #FFC0CB;
+        }
+
+        .board-space.property.bottom-row.orange::before {
+            background-color: #FFA500;
+        }
+
+        .board-space.property.bottom-row.red::before {
+            background-color: #FF0000;
+        }
+
+        .board-space.property.bottom-row.yellow::before {
+            background-color: #FFFF00;
+        }
+
+        .board-space.property.bottom-row.green::before {
+            background-color: #008000;
+        }
+
+        .board-space.property.bottom-row.dark-blue::before {
+            background-color: #000080;
+        }
+
         .board-space.railroad {
-            border-left: 10px solid #8b5cf6;
+            border-left: 10px solid #6B46C1;
         }
 
         .board-space.utility {
@@ -190,27 +368,141 @@
         }
 
         .board-space.chance {
-            border-left: 10px solid #f59e0b;
+            border-left: 10px solid #FF1493;
         }
 
         .board-space.community {
-            border-left: 10px solid #ef4444;
+            border-left: 10px solid #20B2AA;
         }
 
         .board-space.tax {
-            border-left: 10px solid #6b7280;
+            border-left: 10px solid #808080;
         }
+
+        /* Stripe positioning for non-property spaces */
+        /* Top row (spaces 1-9): Horizontal stripes in top corner */
+        .board-space.top-row {
+            border-left: none;
+            position: relative;
+        }
+
+        .board-space.top-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            z-index: 0;
+        }
+
+        .board-space.top-row.railroad::before {
+            background-color: #6B46C1;
+        }
+
+        .board-space.top-row.utility::before {
+            background-color: #06b6d4;
+        }
+
+        .board-space.top-row.chance::before {
+            background-color: #FF1493;
+        }
+
+        .board-space.top-row.community::before {
+            background-color: #20B2AA;
+        }
+
+        .board-space.top-row.tax::before {
+            background-color: #808080;
+        }
+
+        /* Right column (spaces 11-19): Vertical stripes on right side */
+        .board-space.right-column {
+            border-left: none;
+            position: relative;
+        }
+
+        .board-space.right-column::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .board-space.right-column.railroad::after {
+            background-color: #6B46C1;
+        }
+
+        .board-space.right-column.utility::after {
+            background-color: #06b6d4;
+        }
+
+        .board-space.right-column.chance::after {
+            background-color: #FF1493;
+        }
+
+        .board-space.right-column.community::after {
+            background-color: #20B2AA;
+        }
+
+        .board-space.right-column.tax::after {
+            background-color: #808080;
+        }
+
+        /* Bottom row (spaces 21-29): Horizontal stripes in bottom corner */
+        .board-space.bottom-row {
+            border-left: none;
+            position: relative;
+        }
+
+        .board-space.bottom-row::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            z-index: 0;
+        }
+
+        .board-space.bottom-row.railroad::before {
+            background-color: #6B46C1;
+        }
+
+        .board-space.bottom-row.utility::before {
+            background-color: #06b6d4;
+        }
+
+        .board-space.bottom-row.chance::before {
+            background-color: #FF1493;
+        }
+
+        .board-space.bottom-row.community::before {
+            background-color: #20B2AA;
+        }
+
+        .board-space.bottom-row.tax::before {
+            background-color: #808080;
+        }
+
 
         .space-name {
             font-weight: 600;
             font-size: 8px;
             line-height: 1.2;
             margin-bottom: 2px;
+            position: relative;
+            z-index: 2;
         }
 
         .space-price {
             font-size: 7px;
             color: var(--text-secondary);
+            position: relative;
+            z-index: 2;
         }
 
         .space-tokens {
@@ -1352,7 +1644,7 @@
         <div class="game-board">
             <div class="board-center">
                 <div class="logo-container">
-                    <img src="gridgrab.png" alt="GRID GRAB Logo" class="logo-image">
+                    <img src="C:\Users\nirbh\Desktop\gridgrab.png?v=1" alt="GRID GRAB Logo" class="logo-image">
                 </div>
                 <!-- Community Chest Card -->
                 <div class="card-design community-chest-card">
@@ -1463,10 +1755,6 @@
                 <!-- Movement Controls -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Player</label>
-                        <select id="currentPlayer"></select>
-                    </div>
-                    <div class="form-group">
                         <label>Move Type</label>
                         <select id="moveType">
                             <option value="manual">Manual Move</option>
@@ -1506,9 +1794,15 @@
                 <!-- Teleport -->
                 <div class="form-row" id="teleportRow" style="display: none;">
                     <div class="form-group">
+                        <label>Player</label>
+                        <select id="teleportPlayerSelect"></select>
+                    </div>
+                    <div class="form-group">
                         <label>Target Position</label>
                         <input type="number" id="teleportPosition" min="0" max="39" placeholder="0-39">
                     </div>
+                </div>
+                <div class="form-row" id="teleportButtonRow" style="display: none;">
                     <div class="form-group">
                         <label>&nbsp;</label>
                         <button id="teleportPlayer" style="height: 44px;">⚡ Teleport</button>
@@ -2056,6 +2350,51 @@
             }
         }
 
+        // Function to get property color class based on property name
+        function getPropertyColorClass(propertyName) {
+            const colorMap = {
+                // Brown properties
+                'Community Garden': 'brown',
+                'Rainwater Tank': 'brown',
+                
+                // Light Blue properties
+                'Seed Bank': 'light-blue',
+                'Hydroponic Farm': 'light-blue',
+                'Aquaponic Greenhouse': 'light-blue',
+                
+                // Pink properties
+                'Field Clinic': 'pink',
+                'Vaccine Lab': 'pink',
+                'Bioreactor Unit': 'pink',
+                
+                // Orange properties
+                'Greywater Recycling': 'orange',
+                'Water Purification Plant': 'orange',
+                'Bio-compost Facility': 'orange',
+                
+                // Red properties
+                'Solar Microgrid': 'red',
+                'Wind Turbine Field': 'red',
+                'Biogas Plant': 'red',
+                
+                // Yellow properties
+                'Microbial Fuel Cell Lab': 'yellow',
+                'CRISPR Research Hub': 'yellow',
+                'Bioinformatics Data Center': 'yellow',
+                
+                // Green properties
+                'Modular Housing Block': 'green',
+                'Eco-Dome Complex': 'green',
+                'Central Storage Facility': 'green',
+                
+                // Dark Blue properties
+                'Central Control Tower': 'dark-blue',
+                'Global Communication Hub': 'dark-blue'
+            };
+            
+            return colorMap[propertyName] || '';
+        }
+
         // Create the board layout
         function createBoard() {
             const boardGrid = document.getElementById('boardGrid');
@@ -2075,6 +2414,25 @@
                         const space = BOARD_SPACES[spaceIndex];
                         cell.dataset.spaceIndex = spaceIndex;
                         cell.classList.add(space.type);
+                        
+                        // Add property color class and positioning for properties
+                        if (space.type === 'property') {
+                            const colorClass = getPropertyColorClass(space.name);
+                            if (colorClass) {
+                                cell.classList.add(colorClass);
+                            }
+                        }
+                        
+                        // Add positioning class based on space index for space types that should have stripes
+                        if (space.type !== 'go' && space.type !== 'jail' && space.type !== 'parking' && space.type !== 'gotojail') {
+                            if (spaceIndex >= 1 && spaceIndex <= 9) {
+                                cell.classList.add('top-row');
+                            } else if (spaceIndex >= 11 && spaceIndex <= 19) {
+                                cell.classList.add('right-column');
+                            } else if (spaceIndex >= 21 && spaceIndex <= 29) {
+                                cell.classList.add('bottom-row');
+                            }
+                        }
                         
                         cell.innerHTML = `
                             <div class="space-name">${space.name}</div>
@@ -2123,7 +2481,6 @@
             document.getElementById('rollDice').addEventListener('click', rollDiceForPlayer);
             document.getElementById('teleportPlayer').addEventListener('click', teleportPlayer);
             document.getElementById('moveType').addEventListener('change', toggleMoveType);
-            document.getElementById('currentPlayer').addEventListener('change', updateCurrentPlayerInfo);
             document.getElementById('bankTransfer').addEventListener('click', bankTransfer);
             document.getElementById('negotiateTrade').addEventListener('click', negotiateTrade);
             document.getElementById('quickTrade').addEventListener('click', quickTrade);
@@ -2157,9 +2514,10 @@
             }
 
             updatePlayerList();
-            updateCurrentPlayerSelect();
             updateBankSelects();
             updatePropertyTradingSelects();
+            updateTeleportPlayerSelect();
+            updateCurrentPlayerInfo();
             logMessage(`Game started with ${playerCount} players, $${startingMoney} each.`);
         }
 
@@ -2323,7 +2681,6 @@
             
             updatePlayerList();
             updateTokens();
-            updateCurrentPlayerSelect();
             document.getElementById('moveAmount').value = '';
             
             // Automatically change to next player after a short delay
@@ -2536,7 +2893,7 @@
             }
 
             gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
-            updateCurrentPlayerSelect();
+            updateCurrentPlayerInfo();
             logMessage(`Turn ended. Now ${gameState.players[gameState.currentPlayerIndex].name}'s turn.`);
         }
 
@@ -2656,30 +3013,11 @@
             }
         }
 
-        // Update current player select
-        function updateCurrentPlayerSelect() {
-            const select = document.getElementById('currentPlayer');
-            select.innerHTML = '';
-            
-            gameState.players.forEach((player, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = player.name;
-                if (index === gameState.currentPlayerIndex) {
-                    option.selected = true;
-                }
-                select.appendChild(option);
-            });
-            
-            // Update current player info display
-            updateCurrentPlayerInfo();
-        }
 
         // Update current player info display
         function updateCurrentPlayerInfo() {
-            const playerIndex = parseInt(document.getElementById('currentPlayer').value);
-            if (gameState.players[playerIndex]) {
-                const player = gameState.players[playerIndex];
+            if (gameState.players[gameState.currentPlayerIndex]) {
+                const player = gameState.players[gameState.currentPlayerIndex];
                 const space = BOARD_SPACES[player.position];
                 
                 document.getElementById('currentPlayerName').textContent = player.name;
@@ -2704,11 +3042,13 @@
             const manualRow = document.getElementById('manualMoveRow');
             const diceRow = document.getElementById('diceRow');
             const teleportRow = document.getElementById('teleportRow');
+            const teleportButtonRow = document.getElementById('teleportButtonRow');
             
             // Hide all rows
             manualRow.style.display = 'none';
             diceRow.style.display = 'none';
             teleportRow.style.display = 'none';
+            teleportButtonRow.style.display = 'none';
             
             // Show selected row
             switch(moveType) {
@@ -2720,8 +3060,23 @@
                     break;
                 case 'teleport':
                     teleportRow.style.display = 'flex';
+                    teleportButtonRow.style.display = 'flex';
+                    updateTeleportPlayerSelect();
                     break;
             }
+        }
+
+        // Update teleport player select
+        function updateTeleportPlayerSelect() {
+            const teleportPlayerSelect = document.getElementById('teleportPlayerSelect');
+            teleportPlayerSelect.innerHTML = '';
+            
+            gameState.players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player.id;
+                option.textContent = player.name;
+                teleportPlayerSelect.appendChild(option);
+            });
         }
 
         // Roll dice for player
@@ -2775,18 +3130,25 @@
                 return;
             }
 
+            const selectedPlayerId = parseInt(document.getElementById('teleportPlayerSelect').value);
             const targetPosition = parseInt(document.getElementById('teleportPosition').value);
+            
+            if (isNaN(selectedPlayerId)) {
+                showNotification('No Player Selected', 'Please select a player to teleport!', 'error');
+                return;
+            }
+            
             if (isNaN(targetPosition) || targetPosition < 0 || targetPosition > 39) {
                 showNotification('Invalid Position', 'Please enter a valid position (0-39)!', 'error');
                 return;
             }
 
-            const player = gameState.players[gameState.currentPlayerIndex];
+            const player = gameState.players[selectedPlayerId];
             const oldPosition = player.position;
             
             // Store move for undo
             lastMove = {
-                playerIndex: gameState.currentPlayerIndex,
+                playerIndex: selectedPlayerId,
                 oldPosition: oldPosition,
                 newPosition: targetPosition,
                 type: 'teleport'
@@ -2803,16 +3165,11 @@
             updatePlayerList();
             updateCurrentPlayerInfo();
             
-            // Clear input
+            // Clear inputs
             document.getElementById('teleportPosition').value = '';
             
             logMessage(`${player.name} teleported from position ${oldPosition} to ${targetPosition} (${BOARD_SPACES[targetPosition].name})`);
             showNotification('Teleport', `${player.name} teleported to ${BOARD_SPACES[targetPosition].name}`, 'info');
-            
-            // Automatically change to next player after a short delay
-            setTimeout(() => {
-                endTurn();
-            }, 1500); // 1.5 second delay for teleport
         }
 
         // Skip current player's turn
@@ -2920,16 +3277,29 @@
             const ownerSelect = document.getElementById('propertyOwner');
             const buyerSelect = document.getElementById('propertyBuyer');
             
-            // Clear and populate owner and buyer selects
-            [ownerSelect, buyerSelect].forEach(select => {
-                select.innerHTML = '';
-                gameState.players.forEach(player => {
-                    const option = document.createElement('option');
-                    option.value = player.id;
-                    option.textContent = player.name;
-                    select.appendChild(option);
-                });
+            // Clear and populate owner select
+            ownerSelect.innerHTML = '';
+            gameState.players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player.id;
+                option.textContent = player.name;
+                ownerSelect.appendChild(option);
             });
+            
+            // Clear and populate buyer select (including Bank option)
+            buyerSelect.innerHTML = '';
+            gameState.players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player.id;
+                option.textContent = player.name;
+                buyerSelect.appendChild(option);
+            });
+            
+            // Add Bank option to buyer select
+            const bankOption = document.createElement('option');
+            bankOption.value = 'bank';
+            bankOption.textContent = 'Bank';
+            buyerSelect.appendChild(bankOption);
             
             updatePropertyList();
         }
@@ -3001,9 +3371,9 @@
             
             // Update all displays
             updatePlayerList();
-            updateCurrentPlayerSelect();
             updateBankSelects();
             updatePropertyTradingSelects();
+            updateTeleportPlayerSelect();
             
             logMessage(`[HOST] Changed ${oldName}'s name to ${newName}`);
             showNotification('Name Changed', `Changed ${oldName}'s name to ${newName}`, 'success');
@@ -3045,14 +3415,9 @@
             }
 
             const ownerId = parseInt(document.getElementById('propertyOwner').value);
-            const buyerId = parseInt(document.getElementById('propertyBuyer').value);
+            const buyerValue = document.getElementById('propertyBuyer').value;
             const propertyIndex = parseInt(document.getElementById('propertySelect').value);
             const price = parseInt(document.getElementById('propertyPrice').value);
-
-            if (ownerId === buyerId) {
-                showNotification('Invalid Trade', 'Cannot trade with yourself!', 'error');
-                return;
-            }
 
             if (!propertyIndex) {
                 showNotification('No Property Selected', 'Please select a property!', 'error');
@@ -3065,13 +3430,57 @@
             }
 
             const owner = gameState.players[ownerId];
-            const buyer = gameState.players[buyerId];
             const space = BOARD_SPACES[propertyIndex];
 
             if (!owner.properties.includes(propertyIndex)) {
                 showNotification('Invalid Property', 'Selected player does not own this property!', 'error');
                 return;
             }
+
+            // Check if selling to bank
+            if (buyerValue === 'bank') {
+                const content = `
+                    <div style="font-size: 10px; color: var(--text-secondary); margin: 8px 0;">
+                        Property: ${space.name}<br>
+                        Bank Offer: $${price}<br>
+                        Original Price: $${space.price} | ${price >= space.price ? `Profit: $${price - space.price}` : `Loss: $${space.price - price}`}
+                    </div>
+                `;
+                
+                showNotification(
+                    'Sell Property to Bank',
+                    `${owner.name} wants to sell ${space.name} to the Bank`,
+                    'warning',
+                    [
+                        {
+                            text: 'Cancel',
+                            class: 'secondary',
+                            onclick: () => {
+                                logMessage(`${owner.name} cancelled sale to Bank for ${space.name}`);
+                            }
+                        },
+                        {
+                            text: 'Sell to Bank',
+                            class: 'primary',
+                            onclick: () => {
+                                sellToBank(ownerId, propertyIndex, price);
+                            }
+                        }
+                    ],
+                    content
+                );
+                return;
+            }
+
+            // Regular player-to-player trade
+            const buyerId = parseInt(buyerValue);
+            
+            if (ownerId === buyerId) {
+                showNotification('Invalid Trade', 'Cannot trade with yourself!', 'error');
+                return;
+            }
+
+            const buyer = gameState.players[buyerId];
 
             if (buyer.money < price) {
                 showNotification('Insufficient Funds', 'Buyer has insufficient funds!', 'error');
@@ -3119,13 +3528,8 @@
             }
 
             const ownerId = parseInt(document.getElementById('propertyOwner').value);
-            const buyerId = parseInt(document.getElementById('propertyBuyer').value);
+            const buyerValue = document.getElementById('propertyBuyer').value;
             const propertyIndex = parseInt(document.getElementById('propertySelect').value);
-
-            if (ownerId === buyerId) {
-                showNotification('Invalid Trade', 'Cannot trade with yourself!', 'error');
-                return;
-            }
 
             if (!propertyIndex) {
                 showNotification('No Property Selected', 'Please select a property!', 'error');
@@ -3138,14 +3542,57 @@
             // Auto-fill market price
             document.getElementById('propertyPrice').value = marketPrice;
             
-            // Auto-negotiate
             const owner = gameState.players[ownerId];
-            const buyer = gameState.players[buyerId];
 
             if (!owner.properties.includes(propertyIndex)) {
                 showNotification('Invalid Property', 'Selected player does not own this property!', 'error');
                 return;
             }
+
+            // Check if selling to bank
+            if (buyerValue === 'bank') {
+                const content = `
+                    <div style="font-size: 10px; color: var(--text-secondary); margin: 8px 0;">
+                        Property: ${space.name}<br>
+                        Bank Price: $${marketPrice} (20% premium)<br>
+                        Original Price: $${space.price} | Profit: $${marketPrice - space.price}
+                    </div>
+                `;
+
+                showNotification(
+                    'Quick Sell to Bank',
+                    `${owner.name} wants to sell ${space.name} to the Bank at market price`,
+                    'warning',
+                    [
+                        {
+                            text: 'Cancel',
+                            class: 'secondary',
+                            onclick: () => {
+                                logMessage(`${owner.name} cancelled quick sell to Bank for ${space.name}`);
+                            }
+                        },
+                        {
+                            text: 'Sell to Bank',
+                            class: 'primary',
+                            onclick: () => {
+                                sellToBank(ownerId, propertyIndex, marketPrice);
+                            }
+                        }
+                    ],
+                    content
+                );
+                return;
+            }
+
+            // Regular player-to-player trade
+            const buyerId = parseInt(buyerValue);
+            
+            if (ownerId === buyerId) {
+                showNotification('Invalid Trade', 'Cannot trade with yourself!', 'error');
+                return;
+            }
+
+            const buyer = gameState.players[buyerId];
 
             if (buyer.money < marketPrice) {
                 showNotification('Insufficient Funds', 'Buyer has insufficient funds for market price!', 'error');
@@ -3184,6 +3631,41 @@
             );
         }
 
+        // Sell property to bank
+        function sellToBank(ownerId, propertyIndex, price) {
+            const owner = gameState.players[ownerId];
+            const space = BOARD_SPACES[propertyIndex];
+
+            // Remove property from owner
+            const propertyIndexInArray = owner.properties.indexOf(propertyIndex);
+            if (propertyIndexInArray > -1) {
+                owner.properties.splice(propertyIndexInArray, 1);
+            }
+
+            // Remove ownership from board space
+            space.owner = undefined;
+
+            // Add money to owner
+            owner.money += price;
+
+            // Log the transaction
+            const profit = price - space.price;
+            logMessage(`${owner.name} sold ${space.name} to the Bank for $${price} ${profit >= 0 ? `(Profit: $${profit})` : `(Loss: $${Math.abs(profit)})`}`);
+
+            // Update UI
+            updatePlayerList();
+            updatePropertyTradingSelects();
+            updateTokens();
+            updatePropertyOwners();
+
+            // Show success notification
+            showNotification(
+                'Property Sold to Bank',
+                `${owner.name} successfully sold ${space.name} to the Bank for $${price}`,
+                'success'
+            );
+        }
+
         // Update tokens on board
         function updateTokens() {
             // Clear all tokens
@@ -3213,8 +3695,12 @@
         function updatePropertyOwners() {
             BOARD_SPACES.forEach((space, index) => {
                 const ownerDiv = document.getElementById(`owner-${index}`);
-                if (ownerDiv && space.owner !== undefined) {
-                    ownerDiv.textContent = gameState.players[space.owner].name;
+                if (ownerDiv) {
+                    if (space.owner !== undefined) {
+                        ownerDiv.textContent = gameState.players[space.owner].name;
+                    } else {
+                        ownerDiv.textContent = ''; // Clear the display when property is unowned (returned to bank)
+                    }
                 }
             });
         }
@@ -3297,11 +3783,11 @@
                         
                         // Update all displays
                         updatePlayerList();
-                        updateCurrentPlayerSelect();
                         updateTokens();
                         updatePropertyOwners();
                         updateBankSelects();
                         updatePropertyTradingSelects();
+                        updateCurrentPlayerInfo();
                         
                         // Show success message
                         const exportDate = new Date(gameData.timestamp).toLocaleString();
